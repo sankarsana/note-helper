@@ -1,4 +1,4 @@
-# Note Helper
+# Notes
 
 ## Features:
 - Add/edit notes contains:
