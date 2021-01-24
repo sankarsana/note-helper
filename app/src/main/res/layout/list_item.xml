@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layout_height="72dp"
+    tools:ignore="HardcodedText">
 
     <ImageView
         android:id="@+id/icon"
@@ -20,19 +21,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:text="id: "
+        android:textColor="?android:attr/textColorTertiary"
         app:layout_constraintBottom_toTopOf="@id/tags"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="id: 23894" />
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/id_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintStart_toEndOf="@id/id"
+        app:layout_constraintTop_toTopOf="@id/id"
+        tools:text="23467" />
 
     <TextView
         android:id="@+id/tags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="tags: "
+        android:textColor="?android:attr/textColorTertiary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/id"
-        app:layout_constraintTop_toBottomOf="@id/id"
-        tools:text="tags: arrow, chevron, down" />
+        app:layout_constraintTop_toBottomOf="@id/id" />
+
+    <TextView
+        android:id="@+id/tags_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tags"
+        app:layout_constraintTop_toTopOf="@id/tags"
+        tools:text="[arrow, chevron, down, arrow, chevron, down, arrow, chevron, down]" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
