@@ -1,6 +1,8 @@
 package com.bhaktaprogram.notehelper
 
-class NotesDataSourceFake : NotesDataSource {
+import javax.inject.Inject
+
+class NotesDataSourceFake @Inject constructor() : NotesDataSource {
 
     override suspend fun getAll(): List<NoteInfo> {
         return listOf(
