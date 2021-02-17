@@ -1,4 +1,4 @@
-package com.bhaktaprogram.notehelper
+package com.bhaktaprogram.notehelper.features.notes
 
 interface NotesDataSource {
 
