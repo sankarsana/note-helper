@@ -1,13 +1,10 @@
 package com.bhaktaprogram.notehelper
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bhaktaprogram.notehelper.di.DaggerNotesComponent
+import com.bhaktaprogram.notehelper.features.notes.NotesFragment
 import com.bhaktaprogram.notehelper.features.notes.NotesRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Default
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -21,12 +18,12 @@ class MainActivity : AppCompatActivity() {
 
         DaggerNotesComponent.create().inject(this)
 
-        CoroutineScope(Default).launch {
-            val notes = repository.getAll()
-
-            if (notes.isEmpty()) throw RuntimeException()
-
-            Log.i("TAG", notes.toString())
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragments_container, NotesFragment())
+                .commit()
         }
+
     }
 }
