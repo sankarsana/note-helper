@@ -2,9 +2,8 @@ package com.bhaktaprogram.notehelper
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bhaktaprogram.notehelper.di.DaggerNotesComponent
-import com.bhaktaprogram.notehelper.features.notes.NotesFragment
-import com.bhaktaprogram.notehelper.features.notes.NotesRepository
+import com.bhaktaprogram.notehelper.features.notes.domain.NotesRepository
+import com.bhaktaprogram.notehelper.features.notes.ui.NotesFragment
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +14,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        DaggerNotesComponent.create().inject(this)
 
         if (savedInstanceState == null) {
             supportFragmentManager

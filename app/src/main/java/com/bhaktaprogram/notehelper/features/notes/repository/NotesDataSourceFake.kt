@@ -1,5 +1,6 @@
-package com.bhaktaprogram.notehelper.features.notes
+package com.bhaktaprogram.notehelper.features.notes.repository
 
+import com.bhaktaprogram.notehelper.features.notes.domain.NoteInfo
 import javax.inject.Inject
 
 class NotesDataSourceFake @Inject constructor() : NotesDataSource {
