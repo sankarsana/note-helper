@@ -6,8 +6,8 @@
     tools:context=".features.notes.ui.NotesFragment">
 
     <TextView
+        android:id="@+id/text_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
