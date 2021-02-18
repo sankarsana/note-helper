@@ -1,7 +1,8 @@
-package com.bhaktaprogram.notehelper
+package com.bhaktaprogram.notehelper.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bhaktaprogram.notehelper.R
 import com.bhaktaprogram.notehelper.features.notes.domain.NotesRepository
 import com.bhaktaprogram.notehelper.features.notes.ui.NotesFragment
 import javax.inject.Inject
