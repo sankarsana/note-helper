@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bhaktaprogram.notehelper.R
 import com.bhaktaprogram.notehelper.databinding.NotesFragmentBinding
 import com.bhaktaprogram.notehelper.features.notes.di.DaggerNotesComponent
 import com.bhaktaprogram.notehelper.features.notes.domain.NoteInfo
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class NotesFragment : Fragment(R.layout.notes_fragment) {
@@ -28,7 +30,9 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(NotesViewModel::class.java)
 
-        viewModel.state.observe(viewLifecycleOwner, ::updateState)
+        lifecycleScope.launchWhenStarted {
+            viewModel.state.collect(::updateState)
+        }
     }
 
     private fun updateState(list: List<NoteInfo>) {
