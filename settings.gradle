@@ -1,2 +1,3 @@
 include ':app'
+include 'features:notes'
 rootProject.name = "Note Helper"
