@@ -45,8 +45,8 @@ dependencies {
     implementation core_ktx
     implementation appcompat
     implementation material
-    implementation constraintlayout
-    implementation recyclerview
+//    implementation constraintlayout
+//    implementation recyclerview
 
     implementation lifecycle.viewmodel_ktx
     implementation lifecycle.runtime_ktx
