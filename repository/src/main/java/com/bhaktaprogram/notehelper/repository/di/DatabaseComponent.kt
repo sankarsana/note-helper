@@ -1,8 +1,8 @@
-package com.bhaktaprogram.notehelper.main
+package com.bhaktaprogram.notehelper.repository.di
 
 import android.content.Context
 import androidx.room.Room
-import com.bhaktaprogram.notehelper.db.AppDatabase
+import com.bhaktaprogram.notehelper.repository.database.AppDatabase
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
@@ -11,9 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [DatabaseModule::class])
-interface AppComponent {
-
-    fun inject(app: App)
+interface DatabaseComponent {
 
     @Component.Builder
     interface Builder {
@@ -21,7 +19,7 @@ interface AppComponent {
         @BindsInstance
         fun setContext(context: Context): Builder
 
-        fun build(): AppComponent
+        fun build(): DatabaseComponent
     }
 }
 

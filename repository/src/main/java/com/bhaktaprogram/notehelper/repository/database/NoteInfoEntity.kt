@@ -1,4 +1,4 @@
-package com.bhaktaprogram.notehelper.db
+package com.bhaktaprogram.notehelper.repository.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

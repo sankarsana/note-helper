@@ -1,7 +1,5 @@
-include ':core_impl'
-include ':core_api'
-include ':core'
-include ':repository'
 include ':app'
+include ':core', ':core_api', ':core_impl'
+include ':repository'
 include 'features:notes'
 rootProject.name = "Note Helper"

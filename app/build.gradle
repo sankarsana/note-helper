@@ -41,18 +41,13 @@ android {
 dependencies {
 
     implementation project(':features:notes')
+    implementation project(':repository')
 
     implementation kotlin
     implementation coroutines
     implementation core_ktx
     implementation appcompat
     implementation material
-//    implementation constraintlayout
-//    implementation recyclerview
-
-    implementation lifecycle.viewmodel_ktx
-    implementation lifecycle.runtime_ktx
-    implementation lifecycle.common_java8
 
     implementation retrofit.retrofit
     implementation retrofit.converter_gson
@@ -60,10 +55,6 @@ dependencies {
 
     implementation dagger.dagger
     kapt dagger.compiler
-
-    implementation room.runtime
-    implementation room.ktx
-    kapt room.compiler
 
     testImplementation test.junit
 
