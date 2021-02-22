@@ -40,6 +40,8 @@ android {
 
 dependencies {
 
+    implementation project(':features:notes')
+
     implementation kotlin
     implementation coroutines
     implementation core_ktx

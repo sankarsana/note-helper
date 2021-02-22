@@ -1,7 +1,6 @@
 package com.bhaktaprogram.notehelper.main
 
 import android.app.Application
-import android.util.Log
 import com.bhaktaprogram.notehelper.db.AppDatabase
 import javax.inject.Inject
 
@@ -21,6 +20,5 @@ class App : Application() {
             .setContext(this)
             .build()
             .inject(this)
-        Log.i("TAG", "database: $database")
     }
 }

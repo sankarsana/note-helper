@@ -3,14 +3,9 @@ package com.bhaktaprogram.notehelper.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bhaktaprogram.notehelper.R
-import com.bhaktaprogram.notehelper.features.notes.domain.NotesRepository
-import com.bhaktaprogram.notehelper.features.notes.ui.NotesFragment
-import javax.inject.Inject
+import com.bhaktaprogram.notehelper.notes.ui.NotesFragment
 
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var repository: NotesRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +17,5 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragments_container, NotesFragment())
                 .commit()
         }
-
     }
 }

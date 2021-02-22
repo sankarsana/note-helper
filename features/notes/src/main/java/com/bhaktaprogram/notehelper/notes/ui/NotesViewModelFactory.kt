@@ -2,9 +2,10 @@ package com.bhaktaprogram.notehelper.notes.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
 import javax.inject.Provider
 
-internal class NotesViewModelFactory constructor(
+class NotesViewModelFactory @Inject constructor(
     private val provider: Provider<NotesViewModel>
 ) : ViewModelProvider.Factory {
 
