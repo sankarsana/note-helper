@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import com.bhaktaprogram.notehelper.notes.R
 import com.bhaktaprogram.notehelper.notes.databinding.NotesFragmentBinding
 import com.bhaktaprogram.notehelper.notes.di.DaggerNotesComponent
-import com.bhaktaprogram.notehelper.notes.domain.NoteInfo
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -19,6 +18,7 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
     private lateinit var viewModel: NotesViewModel
     private var _binding: NotesFragmentBinding? = null
     private val binding get() = _binding!!
+    private val adapter = NotesAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,6 +26,7 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
         DaggerNotesComponent.create().inject(this)
 
         _binding = NotesFragmentBinding.bind(view)
+        binding.list.adapter = adapter
 
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(NotesViewModel::class.java)
@@ -35,13 +36,8 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
         }
     }
 
-    private fun updateState(list: List<NoteInfo>) {
-        val notes = StringBuilder("Notes:\n")
-        list.forEach {
-            notes.append("\t").append(it.toString()).append("\n")
-        }
-        notes.trim()
-        binding.textView.text = notes
+    private fun updateState(items: List<NoteInfoUiDto>) {
+        adapter.update(items)
     }
 
     override fun onDestroyView() {

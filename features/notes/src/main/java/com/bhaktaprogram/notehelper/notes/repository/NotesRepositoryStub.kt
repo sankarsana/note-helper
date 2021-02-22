@@ -7,8 +7,8 @@ import javax.inject.Inject
 class NotesRepositoryStub @Inject constructor() : NotesRepository {
 
     override suspend fun getAll(): List<NoteInfo> = listOf(
-        NoteInfo(1, "First"),
-        NoteInfo(2, "Second"),
-        NoteInfo(3, "Third")
+        NoteInfo(1, "First important note"),
+        NoteInfo(2, "Second important note"),
+        NoteInfo(3, "Third important note")
     )
 }

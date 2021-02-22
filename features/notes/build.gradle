@@ -50,6 +50,8 @@ dependencies {
     implementation lifecycle.runtime_ktx
     implementation lifecycle.common_java8
 
+    implementation recyclerview
+
     implementation dagger.dagger
     kapt dagger.compiler
 

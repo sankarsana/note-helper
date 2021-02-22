@@ -13,12 +13,18 @@ class NotesViewModel @Inject constructor(
     private val interactor: NotesInteractor
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<List<NoteInfo>>(emptyList())
-    val state: StateFlow<List<NoteInfo>> get() = _state
+    private val _state = MutableStateFlow<List<NoteInfoUiDto>>(emptyList())
+    val state: StateFlow<List<NoteInfoUiDto>> get() = _state
 
     init {
         viewModelScope.launch {
             _state.value = interactor.getAll()
+                .map { it.toUi() }
         }
     }
+
+    private fun NoteInfo.toUi() = NoteInfoUiDto(
+        id = id.toString(),
+        title = title
+    )
 }
