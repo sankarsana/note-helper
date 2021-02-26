@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
-apply from: "$rootDir/deps_versions.gradle"
+apply from: "$rootDir/versions.gradle"
 
 android {
     compileSdkVersion versions.compile_sdk
@@ -31,7 +31,7 @@ android {
         targetCompatibility versions.java
     }
     kotlinOptions {
-        jvmTarget = versions.java
+        jvmTarget = versions.java.toString().toString()
     }
     buildFeatures {
         viewBinding true

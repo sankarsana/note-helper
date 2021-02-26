@@ -1,6 +1,6 @@
 buildscript {
 
-    apply from: "$rootDir/deps_versions.gradle"
+    apply from: "$rootDir/versions.gradle"
 
     repositories {
         google()
