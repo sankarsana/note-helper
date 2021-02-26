@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':main'
 include ':core', ':core_api', ':core_impl'
 include ':repository'
 include 'features:notes'
