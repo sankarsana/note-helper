@@ -1,10 +1,10 @@
-package com.bhaktaprogram.notehelper.notes.di
+package com.bhaktaprogram.notes.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.bhaktaprogram.notehelper.notes.domain.NotesRepository
-import com.bhaktaprogram.notehelper.notes.repository.NotesRepositoryStub
-import com.bhaktaprogram.notehelper.notes.ui.NotesFragment
-import com.bhaktaprogram.notehelper.notes.ui.NotesViewModelFactory
+import com.bhaktaprogram.notes.domain.NotesRepository
+import com.bhaktaprogram.notes.repository.NotesRepositoryStub
+import com.bhaktaprogram.notes.ui.NotesFragment
+import com.bhaktaprogram.notes.ui.NotesViewModelFactory
 import dagger.Binds
 import dagger.Component
 import dagger.Module

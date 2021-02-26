@@ -1,7 +1,7 @@
-package com.bhaktaprogram.notehelper.notes.repository
+package com.bhaktaprogram.notes.repository
 
-import com.bhaktaprogram.notehelper.notes.domain.NoteInfo
-import com.bhaktaprogram.notehelper.notes.domain.NotesRepository
+import com.bhaktaprogram.notes.domain.NoteInfo
+import com.bhaktaprogram.notes.domain.NotesRepository
 import javax.inject.Inject
 
 class NotesRepositoryStub @Inject constructor() : NotesRepository {

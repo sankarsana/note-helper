@@ -2,7 +2,7 @@ package com.bhaktaprogram.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bhaktaprogram.notehelper.notes.ui.NotesFragment
+import com.bhaktaprogram.notes.ui.NotesFragment
 
 class MainActivity : AppCompatActivity() {
 

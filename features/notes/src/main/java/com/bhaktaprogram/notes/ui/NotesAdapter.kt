@@ -1,9 +1,9 @@
-package com.bhaktaprogram.notehelper.notes.ui
+package com.bhaktaprogram.notes.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bhaktaprogram.notehelper.notes.databinding.NoteItemBinding
+import com.bhaktaprogram.notes.databinding.NoteItemBinding
 
 class NotesAdapter : RecyclerView.Adapter<NotesAdapter.Holder>() {
 

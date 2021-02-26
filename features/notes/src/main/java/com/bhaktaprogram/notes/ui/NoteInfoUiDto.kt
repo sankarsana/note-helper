@@ -1,4 +1,4 @@
-package com.bhaktaprogram.notehelper.notes.ui
+package com.bhaktaprogram.notes.ui
 
 data class NoteInfoUiDto(
     val id: String,

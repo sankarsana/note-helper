@@ -1,4 +1,4 @@
-package com.bhaktaprogram.notehelper.notes.ui
+package com.bhaktaprogram.notes.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

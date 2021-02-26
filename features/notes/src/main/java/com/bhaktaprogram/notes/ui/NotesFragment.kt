@@ -1,13 +1,13 @@
-package com.bhaktaprogram.notehelper.notes.ui
+package com.bhaktaprogram.notes.ui
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.bhaktaprogram.notehelper.notes.R
-import com.bhaktaprogram.notehelper.notes.databinding.NotesFragmentBinding
-import com.bhaktaprogram.notehelper.notes.di.DaggerNotesComponent
+import com.bhaktaprogram.notes.R
+import com.bhaktaprogram.notes.databinding.NotesFragmentBinding
+import com.bhaktaprogram.notes.di.DaggerNotesComponent
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
