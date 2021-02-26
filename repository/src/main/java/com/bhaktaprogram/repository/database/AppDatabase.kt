@@ -1,4 +1,4 @@
-package com.bhaktaprogram.notehelper.repository.database
+package com.bhaktaprogram.repository.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

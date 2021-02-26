@@ -1,7 +1,7 @@
 package com.bhaktaprogram.notehelper
 
 import android.app.Application
-import com.bhaktaprogram.notehelper.repository.di.DaggerDatabaseComponent
+import com.bhaktaprogram.repository.di.DaggerDatabaseComponent
 
 class App : Application() {
 

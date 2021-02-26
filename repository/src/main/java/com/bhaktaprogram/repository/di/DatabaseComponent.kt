@@ -1,8 +1,8 @@
-package com.bhaktaprogram.notehelper.repository.di
+package com.bhaktaprogram.repository.di
 
 import android.content.Context
 import androidx.room.Room
-import com.bhaktaprogram.notehelper.repository.database.AppDatabase
+import com.bhaktaprogram.repository.database.AppDatabase
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module

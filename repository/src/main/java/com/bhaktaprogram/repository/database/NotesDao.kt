@@ -1,4 +1,4 @@
-package com.bhaktaprogram.notehelper.repository.database
+package com.bhaktaprogram.repository.database
 
 import androidx.room.Dao
 import androidx.room.Delete
