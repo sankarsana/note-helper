@@ -38,6 +38,7 @@ dependencies {
 
     implementation kotlin
     implementation core_ktx
+    implementation appcompat
 
     testImplementation test.junit
 }

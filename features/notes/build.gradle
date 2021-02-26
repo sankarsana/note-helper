@@ -40,6 +40,8 @@ android {
 
 dependencies {
 
+    implementation project(':core:core')
+
     implementation kotlin
     implementation coroutines
     implementation core_ktx

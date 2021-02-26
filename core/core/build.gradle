@@ -36,6 +36,8 @@ android {
 
 dependencies {
 
+    api project(':core:core_api')
+
     implementation kotlin
     implementation core_ktx
 
