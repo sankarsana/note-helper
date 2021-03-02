@@ -42,6 +42,8 @@ dependencies {
 
     implementation project(':repository')
     implementation project(':main')
+    implementation project(':core:core')
+    implementation project(':features:notes')
 
     implementation kotlin
     implementation coroutines
