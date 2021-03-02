@@ -8,11 +8,11 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-abstract class NotesModule {
+interface NotesModule {
 
     @Binds
-    abstract fun bindViewModelFactory(factory: NotesViewModelFactory): ViewModelProvider.Factory
+    fun bindViewModelFactory(factory: NotesViewModelFactory): ViewModelProvider.Factory
 
     @Binds
-    abstract fun bindRepository(repository: NotesRepositoryStub): NotesRepository
+    fun bindRepository(repository: NotesRepositoryStub): NotesRepository
 }
