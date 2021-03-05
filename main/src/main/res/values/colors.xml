@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="day_current_month">#DE000000</color>
-    <color name="day_another_month">#12000000</color>
+    <color name="number_current_month">#DE000000</color>
+    <color name="number_another_month">#12000000</color>
+    <color name="day_of_month_today">#61000000</color>
+    <color name="day_of_month_focus">@color/number_current_month</color>
+
+    <color name="most_important_event">#FF7A5C</color>
+    <color name="important_event">#3EB9FF</color>
+    <color name="simple_event">#FFF1C6</color>
 </resources>

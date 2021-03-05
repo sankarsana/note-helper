@@ -2,37 +2,26 @@ package com.bhaktaprogram.main.custom.view
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.bhaktaprogram.main.R
+import kotlin.math.min
 
 class CalendarView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null
 ) : View(context, attributeSet) {
 
-    private var columnWidth = 0f
-    private var columnHeight = 0f
+    private var cellWidth = 0f
+    private var cellHeight = 0f
+    private var horizontalPadding = 0f
+    private var verticalPadding = 0f
+    private var dayViewSize = 0f
     private val dayRect = RectF()
     private var days = emptyList<DayOfMonthUi>()
-    private val numberTextSize = context.resources
-        .getDimensionPixelSize(R.dimen.day_text_size).toFloat()
-
-    private val numberCurrentMonthPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.resources.getColor(R.color.day_current_month, null)
-        textAlign = Paint.Align.CENTER
-        textSize = numberTextSize
-        strokeWidth = 1f
-    }
-
-    private val numberAnotherMonthPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.resources.getColor(R.color.day_another_month, null)
-        textAlign = Paint.Align.CENTER
-        textSize = numberTextSize
-        strokeWidth = 1f
-    }
+    private val paints = Paints(context)
 
     init {
         if (isInEditMode) {
@@ -50,34 +39,60 @@ class CalendarView @JvmOverloads constructor(
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
-        columnWidth = width.toFloat() / COLUMNS
-        columnHeight = height.toFloat() / ROWS
+        Log.i("TAG", "onSizeChanged width: $width, height: $height")
+        cellWidth = width.toFloat() / COLUMNS
+        cellHeight = height.toFloat() / ROWS
+        val cellPadding = resources
+            .getDimensionPixelSize(R.dimen.day_of_month_default_padding).toFloat()
+        dayViewSize = min(cellWidth, cellHeight) - cellPadding * 2
+        horizontalPadding = (cellWidth - dayViewSize) / 2
+        verticalPadding = (cellHeight - dayViewSize) / 2
     }
 
     override fun onDraw(canvas: Canvas) {
-        dayRect.set(0f, 0f, columnWidth, columnHeight)
+        dayRect.set(
+            horizontalPadding,
+            verticalPadding,
+            horizontalPadding + dayViewSize,
+            verticalPadding + dayViewSize
+        )
         for (day in days) {
-//            if (day.number == "1" || day.number == "7" || day.number == "9")
-//            canvas.drawRect(dayRect, numberCurrentMonthPaint)
-
+            if (day.currentMonth && day.eventType != EventType.Nothing) drawEvent(canvas, day)
+            if (day.isToday) drawToday(canvas)
+            if (day.isSelected) drawSelection(canvas)
             drawNumber(canvas, day)
 
             moveDayRect()
         }
     }
 
+    private fun drawEvent(canvas: Canvas, day: DayOfMonthUi) {
+        val paint = when (day.eventType) {
+            EventType.MostImportant -> paints.mostImportantEvent
+            EventType.Important -> paints.importantEvent
+            else -> paints.simpleEvent
+        }
+        canvas.drawOval(dayRect, paint)
+    }
+
     private fun moveDayRect() {
-        if (dayRect.right + columnWidth <= width) {
-            dayRect.offset(columnWidth, 0f)
+        if (dayRect.right + cellWidth <= width) {
+            dayRect.offset(cellWidth, 0f)
         } else {
-            val newTop = dayRect.top + columnHeight
-            val newBottom = newTop + columnHeight
-            dayRect.set(0f, newTop, columnWidth, newBottom)
+            dayRect.offsetTo(horizontalPadding, dayRect.top + cellHeight)
         }
     }
 
+    private fun drawToday(canvas: Canvas) {
+        canvas.drawOval(dayRect, paints.today)
+    }
+
+    private fun drawSelection(canvas: Canvas) {
+        canvas.drawOval(dayRect, paints.focus)
+    }
+
     private fun drawNumber(canvas: Canvas, day: DayOfMonthUi) {
-        val paint = if (day.currentMonth) numberCurrentMonthPaint else numberAnotherMonthPaint
+        val paint = if (day.currentMonth) paints.numberCurrentMonth else paints.numberAnotherMonth
         val offsetY = (paint.descent() + paint.ascent()) / 2
         val y = dayRect.centerY() - offsetY
         canvas.drawText(day.number, dayRect.centerX(), y, paint)
