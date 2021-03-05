@@ -18,7 +18,10 @@ class MainActivity : AppCompatActivity() {
         injectDependencies()
 
         if (savedInstanceState == null) {
-            notesMediator.startNotesScreen(R.id.fragments_container, supportFragmentManager)
+//            notesMediator.startNotesScreen(R.id.fragments_container, supportFragmentManager)
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragments_container, CalendarFragment())
+                .commit()
         }
     }
 
