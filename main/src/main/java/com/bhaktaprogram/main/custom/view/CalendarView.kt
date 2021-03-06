@@ -43,6 +43,20 @@ class CalendarView @JvmOverloads constructor(
         onDaySelected = listener
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val width = if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.UNSPECIFIED) {
+            resources.getDimensionPixelSize(R.dimen.calendar_default_width)
+        } else {
+            MeasureSpec.getSize(widthMeasureSpec)
+        }
+        val height = if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED) {
+            resources.getDimensionPixelSize(R.dimen.calendar_default_height)
+        } else {
+            MeasureSpec.getSize(heightMeasureSpec)
+        }
+        setMeasuredDimension(width, height)
+    }
+
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
         dayRect.onViewSizeChanged(width, height)
     }

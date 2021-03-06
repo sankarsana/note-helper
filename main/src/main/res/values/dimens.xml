@@ -4,4 +4,6 @@
     <dimen name="day_of_month_today_border">1dp</dimen>
     <dimen name="day_of_month_selected_border">1dp</dimen>
     <dimen name="day_of_month_default_padding">3dp</dimen>
+    <dimen name="calendar_default_width">400dp</dimen>
+    <dimen name="calendar_default_height">316dp</dimen>
 </resources>
