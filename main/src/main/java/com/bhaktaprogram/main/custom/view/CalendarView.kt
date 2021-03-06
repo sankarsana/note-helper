@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import com.bhaktaprogram.main.R
 import kotlin.math.min
@@ -39,7 +38,6 @@ class CalendarView @JvmOverloads constructor(
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
-        Log.i("TAG", "onSizeChanged width: $width, height: $height")
         cellWidth = width.toFloat() / COLUMNS
         cellHeight = height.toFloat() / ROWS
         val cellPadding = resources
@@ -72,11 +70,22 @@ class CalendarView @JvmOverloads constructor(
 
     private fun drawEvent(canvas: Canvas, day: DayOfMonthUi) {
         if (day.eventType == EventType.DoubleImportant) {
-
+            drawDoubleEvent(canvas)
         } else {
-            val paint = paints.getForEvent(day.eventType)
-            canvas.drawOval(dayRect, paint)
+            drawCircleEvent(day, canvas)
         }
+    }
+
+    private fun drawDoubleEvent(canvas: Canvas) {
+        val paint1 = paints.getForEvent(EventType.MostImportant)
+        canvas.drawArc(dayRect, 90F, 180F, false, paint1)
+        val paint2 = paints.getForEvent(EventType.Important)
+        canvas.drawArc(dayRect, -90F, 180F, false, paint2)
+    }
+
+    private fun drawCircleEvent(day: DayOfMonthUi, canvas: Canvas) {
+        val paint = paints.getForEvent(day.eventType)
+        canvas.drawOval(dayRect, paint)
     }
 
     private fun moveDayRect() {
