@@ -2,7 +2,6 @@ package com.bhaktaprogram.main.custom.view
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Log
@@ -22,29 +21,7 @@ class CalendarView @JvmOverloads constructor(
     private var dayViewSize = 0f
     private val dayRect = RectF()
     private var days = emptyList<DayOfMonthUi>()
-    private val colors = CalendarColors(context)
-
-    private val numberPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textAlign = Paint.Align.CENTER
-        textSize = resources.getDimensionPixelSize(R.dimen.day_text_size).toFloat()
-    }
-
-    private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL
-    }
-
-    private val todayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.STROKE
-        strokeWidth = resources.getDimensionPixelSize(R.dimen.day_of_month_today_border).toFloat()
-        color = resources.getColor(R.color.day_of_month_today, null)
-    }
-
-    private val selectionPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.STROKE
-        strokeWidth =
-            resources.getDimensionPixelSize(R.dimen.day_of_month_selected_border).toFloat()
-        color = resources.getColor(R.color.day_of_month_focus, null)
-    }
+    private val paints = Paints(context)
 
     init {
         if (isInEditMode) {
@@ -97,8 +74,8 @@ class CalendarView @JvmOverloads constructor(
         if (day.eventType == EventType.DoubleImportant) {
 
         } else {
-            circlePaint.color = colors.getForEvent(day.eventType)
-            canvas.drawOval(dayRect, circlePaint)
+            val paint = paints.getForEvent(day.eventType)
+            canvas.drawOval(dayRect, paint)
         }
     }
 
@@ -110,16 +87,12 @@ class CalendarView @JvmOverloads constructor(
         }
     }
 
-    private fun drawToday(canvas: Canvas) {
-        canvas.drawOval(dayRect, todayPaint)
-    }
+    private fun drawToday(canvas: Canvas) = canvas.drawOval(dayRect, paints.todayPaint)
 
-    private fun drawSelection(canvas: Canvas) {
-        canvas.drawOval(dayRect, selectionPaint)
-    }
+    private fun drawSelection(canvas: Canvas) = canvas.drawOval(dayRect, paints.selectionPaint)
 
     private fun drawNumber(canvas: Canvas, day: DayOfMonthUi) {
-        numberPaint.color = colors.getForText(day)
+        val numberPaint = paints.getForText(day)
         val offsetY = (numberPaint.descent() + numberPaint.ascent()) / 2
         val y = dayRect.centerY() - offsetY
         canvas.drawText(day.number, dayRect.centerX(), y, numberPaint)
