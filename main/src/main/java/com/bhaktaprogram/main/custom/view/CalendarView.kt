@@ -1,10 +1,13 @@
 package com.bhaktaprogram.main.custom.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import com.bhaktaprogram.main.R
+import kotlin.math.abs
 
 class CalendarView @JvmOverloads constructor(
     context: Context,
@@ -13,20 +16,25 @@ class CalendarView @JvmOverloads constructor(
 
     private var days = emptyList<DayOfMonthUi>()
     private val paints = Paints(context)
+    private var lastTouchX = 0f
+    private var lastTouchY = 0f
     private val dayRect = DayRect(
         resources.getDimensionPixelSize(R.dimen.day_of_month_default_padding).toFloat()
     )
+    private val minTouchDistance = 2 * resources.displayMetrics.density + 0.5f
+    private var selectIndex = -1
 
     init {
         if (isInEditMode) days = FakeDaysRepository.get()
     }
 
-    fun setData(days: List<DayOfMonthUi>) {
+    fun setData(days: List<DayOfMonthUi>, selectIndex: Int) {
         if (days.size != COLUMNS * ROWS) {
             val msg = "The number of days should be ${COLUMNS * ROWS}. Actual is ${days.size}"
             throw IllegalArgumentException(msg)
         }
         this.days = days
+        this.selectIndex = selectIndex
         invalidate()
     }
 
@@ -36,10 +44,12 @@ class CalendarView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         dayRect.reset()
-        for (day in days) {
+        days.forEachIndexed { index, day ->
             if (day.currentMonth && day.eventType != EventType.Nothing) drawEvent(canvas, day)
             if (day.isToday) drawToday(canvas)
-            if (day.isSelected) drawSelection(canvas)
+            if (selectIndex == index) {
+                drawSelection(canvas)
+            }
             drawNumber(canvas, day)
             dayRect.moveToNext()
         }
@@ -55,8 +65,8 @@ class CalendarView @JvmOverloads constructor(
 
     private fun drawDoubleEvent(canvas: Canvas) {
         val paint1 = paints.getForEvent(EventType.MostImportant)
-        val paint2 = paints.getForEvent(EventType.Important)
         canvas.drawArc(dayRect, 90F, 180F, false, paint1)
+        val paint2 = paints.getForEvent(EventType.Important)
         canvas.drawArc(dayRect, -90F, 180F, false, paint2)
     }
 
@@ -75,6 +85,31 @@ class CalendarView @JvmOverloads constructor(
         val y = dayRect.centerY() - offsetY
         canvas.drawText(day.number, dayRect.centerX(), y, numberPaint)
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                lastTouchX = event.x
+                lastTouchY = event.y
+            }
+            MotionEvent.ACTION_UP -> {
+                if (isClick(event.x, event.y)) performDayClick(event.x, event.y)
+            }
+        }
+        return true
+    }
+
+    private fun performDayClick(x: Float, y: Float) {
+        val index = dayRect.findCellIndex(x, y)
+        if (days[index].currentMonth) {
+            selectIndex = index
+            invalidate()
+        }
+    }
+
+    private fun isClick(x: Float, y: Float) = abs(x - lastTouchX) <= minTouchDistance
+            && abs(y - lastTouchY) <= minTouchDistance
 
     companion object {
         const val COLUMNS = 7

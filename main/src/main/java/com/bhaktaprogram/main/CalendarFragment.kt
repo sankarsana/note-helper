@@ -12,6 +12,6 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val calendar = view.findViewById<CalendarView>(R.id.calendar)
-        calendar.setData(FakeDaysRepository.get())
+        calendar.setData(FakeDaysRepository.get(), -1)
     }
 }

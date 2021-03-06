@@ -36,4 +36,10 @@ class DayRect(private val padding: Float) : RectF() {
             offsetTo(horizontalPadding, top + cellHeight)
         }
     }
+
+    fun findCellIndex(x: Float, y: Float): Int {
+        val coll = (x / cellWidth).toInt()
+        val row = (y / cellHeight).toInt()
+        return row * CalendarView.COLUMNS + coll
+    }
 }
