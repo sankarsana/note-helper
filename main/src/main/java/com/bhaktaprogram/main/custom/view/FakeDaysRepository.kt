@@ -31,7 +31,6 @@ object FakeDaysRepository {
         days[31] = days[31].copy(eventType = EventType.Simple)
 
         days[7] = days[7].copy(isToday = true)
-        days[28] = days[28].copy(isSelected = true)
     }
 
     private fun createAfterCurrentMonth(days: MutableList<DayOfMonthUi>, count: Int) {

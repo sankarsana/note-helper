@@ -4,6 +4,5 @@ data class DayOfMonthUi(
     val number: String,
     val eventType: EventType = EventType.Nothing,
     val currentMonth: Boolean = true,
-    val isToday: Boolean = false,
-    val isSelected: Boolean = false,
+    val isToday: Boolean = false
 )

@@ -23,6 +23,7 @@ class CalendarView @JvmOverloads constructor(
     )
     private val minTouchDistance = 2 * resources.displayMetrics.density + 0.5f
     private var selectIndex = -1
+    private var onDaySelected: (DayOfMonthUi) -> Unit = {}
 
     init {
         if (isInEditMode) days = FakeDaysRepository.get()
@@ -36,6 +37,10 @@ class CalendarView @JvmOverloads constructor(
         this.days = days
         this.selectIndex = selectIndex
         invalidate()
+    }
+
+    fun setOnDaySelectListener(listener: (DayOfMonthUi) -> Unit) {
+        onDaySelected = listener
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
@@ -102,9 +107,11 @@ class CalendarView @JvmOverloads constructor(
 
     private fun performDayClick(x: Float, y: Float) {
         val index = dayRect.findCellIndex(x, y)
-        if (days[index].currentMonth) {
+        val day = days[index]
+        if (day.currentMonth) {
             selectIndex = index
             invalidate()
+            onDaySelected(day)
         }
     }
 
