@@ -13,12 +13,6 @@ class Paints(private val context: Context) {
     val todayBorderWidth = getDimensionPixelSize(R.dimen.day_of_month_today_border)
     val selectBorderWidth = getDimensionPixelSize(R.dimen.day_of_month_selected_border)
 
-    val numberCurrentMonth = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = getColor(R.color.number_current_month)
-        textAlign = Paint.Align.CENTER
-        textSize = numberTextSize
-    }
-
     val numberAnotherMonth = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.resources.getColor(R.color.number_another_month, null)
         textAlign = Paint.Align.CENTER

@@ -2,6 +2,7 @@ package com.bhaktaprogram.main.custom.view
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Log
@@ -21,7 +22,13 @@ class CalendarView @JvmOverloads constructor(
     private var dayViewSize = 0f
     private val dayRect = RectF()
     private var days = emptyList<DayOfMonthUi>()
+    private val colors = CalendarColors(context)
     private val paints = Paints(context)
+
+    private val numberPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        textAlign = Paint.Align.CENTER
+        textSize = resources.getDimensionPixelSize(R.dimen.day_text_size).toFloat()
+    }
 
     init {
         if (isInEditMode) {
@@ -50,12 +57,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        dayRect.set(
-            horizontalPadding,
-            verticalPadding,
-            horizontalPadding + dayViewSize,
-            verticalPadding + dayViewSize
-        )
+        resetRect()
         for (day in days) {
             if (day.currentMonth && day.eventType != EventType.Nothing) drawEvent(canvas, day)
             if (day.isToday) drawToday(canvas)
@@ -64,6 +66,15 @@ class CalendarView @JvmOverloads constructor(
 
             moveDayRect()
         }
+    }
+
+    private fun resetRect() {
+        dayRect.set(
+            horizontalPadding,
+            verticalPadding,
+            horizontalPadding + dayViewSize,
+            verticalPadding + dayViewSize
+        )
     }
 
     private fun drawEvent(canvas: Canvas, day: DayOfMonthUi) {
@@ -92,10 +103,10 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun drawNumber(canvas: Canvas, day: DayOfMonthUi) {
-        val paint = if (day.currentMonth) paints.numberCurrentMonth else paints.numberAnotherMonth
-        val offsetY = (paint.descent() + paint.ascent()) / 2
+        numberPaint.color = colors.getForText(day)
+        val offsetY = (numberPaint.descent() + numberPaint.ascent()) / 2
         val y = dayRect.centerY() - offsetY
-        canvas.drawText(day.number, dayRect.centerX(), y, paint)
+        canvas.drawText(day.number, dayRect.centerX(), y, numberPaint)
     }
 
     companion object {
