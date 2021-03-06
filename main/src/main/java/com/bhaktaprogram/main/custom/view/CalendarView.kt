@@ -23,11 +23,27 @@ class CalendarView @JvmOverloads constructor(
     private val dayRect = RectF()
     private var days = emptyList<DayOfMonthUi>()
     private val colors = CalendarColors(context)
-    private val paints = Paints(context)
 
     private val numberPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
         textSize = resources.getDimensionPixelSize(R.dimen.day_text_size).toFloat()
+    }
+
+    private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+    }
+
+    private val todayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.day_of_month_today_border).toFloat()
+        color = resources.getColor(R.color.day_of_month_today, null)
+    }
+
+    private val selectionPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
+        strokeWidth =
+            resources.getDimensionPixelSize(R.dimen.day_of_month_selected_border).toFloat()
+        color = resources.getColor(R.color.day_of_month_focus, null)
     }
 
     init {
@@ -78,12 +94,12 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun drawEvent(canvas: Canvas, day: DayOfMonthUi) {
-        val paint = when (day.eventType) {
-            EventType.MostImportant -> paints.mostImportantEvent
-            EventType.Important -> paints.importantEvent
-            else -> paints.simpleEvent
+        if (day.eventType == EventType.DoubleImportant) {
+
+        } else {
+            circlePaint.color = colors.getForEvent(day.eventType)
+            canvas.drawOval(dayRect, circlePaint)
         }
-        canvas.drawOval(dayRect, paint)
     }
 
     private fun moveDayRect() {
@@ -95,11 +111,11 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun drawToday(canvas: Canvas) {
-        canvas.drawOval(dayRect, paints.today)
+        canvas.drawOval(dayRect, todayPaint)
     }
 
     private fun drawSelection(canvas: Canvas) {
-        canvas.drawOval(dayRect, paints.focus)
+        canvas.drawOval(dayRect, selectionPaint)
     }
 
     private fun drawNumber(canvas: Canvas, day: DayOfMonthUi) {
