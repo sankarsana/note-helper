@@ -4,6 +4,5 @@ enum class EventType {
     MostImportant,
     DoubleImportant,
     Important,
-    Simple,
-    Nothing
+    Simple
 }

@@ -63,7 +63,7 @@ class CalendarView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         dayRect.reset()
         days.forEachIndexed { index, day ->
-            if (day.currentMonth && day.eventType != EventType.Nothing) drawEvent(canvas, day)
+            if (day.eventType != null && day.currentMonth) drawEvent(canvas, day)
             if (day.isToday) drawToday(canvas)
             if (selectIndex == index) {
                 drawSelection(canvas)
@@ -89,7 +89,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun drawCircleEvent(day: DayOfMonthUi, canvas: Canvas) {
-        val paint = paints.getForEvent(day.eventType)
+        val paint = paints.getForEvent(day.eventType ?: return)
         canvas.drawOval(dayRect, paint)
     }
 
@@ -112,7 +112,9 @@ class CalendarView @JvmOverloads constructor(
                 lastTouchY = event.y
             }
             MotionEvent.ACTION_UP -> {
-                if (isClick(event.x, event.y)) performDayClick(event.x, event.y)
+                val isClick = abs(event.x - lastTouchX) <= minTouchDistance
+                        && abs(event.y - lastTouchY) <= minTouchDistance
+                if (isClick) performDayClick(event.x, event.y)
             }
         }
         return true
@@ -127,9 +129,6 @@ class CalendarView @JvmOverloads constructor(
             onDaySelected(day)
         }
     }
-
-    private fun isClick(x: Float, y: Float) = abs(x - lastTouchX) <= minTouchDistance
-            && abs(y - lastTouchY) <= minTouchDistance
 
     companion object {
         const val COLUMNS = 7

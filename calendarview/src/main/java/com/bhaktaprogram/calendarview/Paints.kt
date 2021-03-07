@@ -47,15 +47,15 @@ class Paints(private val context: Context) {
     }
 
     private fun getTextColor(day: DayOfMonthUi): Int {
-        if (!day.currentMonth) {
-            return getColor(R.color.number_another_month)
-        }
-        return when (day.eventType) {
-            EventType.MostImportant -> numberMostImportant
-            EventType.DoubleImportant -> numberDoubleImportant
-            EventType.Important -> numberImportant
-            EventType.Simple -> numberSimple
-            EventType.Nothing -> numberNothing
+        return when {
+            !day.currentMonth -> getColor(R.color.number_another_month)
+            day.eventType == null -> numberNothing
+            else -> when (day.eventType) {
+                EventType.MostImportant -> numberMostImportant
+                EventType.DoubleImportant -> numberDoubleImportant
+                EventType.Important -> numberImportant
+                EventType.Simple -> numberSimple
+            }
         }
     }
 
