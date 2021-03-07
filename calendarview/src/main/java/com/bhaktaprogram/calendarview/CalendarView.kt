@@ -1,4 +1,4 @@
-package com.bhaktaprogram.main.custom.view
+package com.bhaktaprogram.calendarview
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,7 +6,6 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.bhaktaprogram.main.R
 import kotlin.math.abs
 
 class CalendarView @JvmOverloads constructor(

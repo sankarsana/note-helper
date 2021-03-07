@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bhaktaprogram.main.custom.view.CalendarView
+    <com.bhaktaprogram.calendarview.CalendarView
         android:id="@+id/calendar"
         android:layout_width="0dp"
         android:layout_height="316dp"

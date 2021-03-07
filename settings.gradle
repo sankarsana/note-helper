@@ -1,4 +1,4 @@
-include ':app', ':main'
+include ':app', ':main', ':calendarview'
 include ':core:core', ':core:core_api', ':core:core_impl'
 include ':repository'
 include ':features:notes'

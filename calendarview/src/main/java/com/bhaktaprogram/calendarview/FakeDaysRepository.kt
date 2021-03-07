@@ -1,4 +1,4 @@
-package com.bhaktaprogram.main.custom.view
+package com.bhaktaprogram.calendarview
 
 object FakeDaysRepository {
 

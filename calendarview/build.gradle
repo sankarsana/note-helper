@@ -33,22 +33,21 @@ android {
     kotlinOptions {
         jvmTarget = versions.java.toString()
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
 
-    implementation project(':core:core_api')
-    implementation project(':features:notes')
-    implementation project(':calendarview')
-
     implementation kotlin
+    implementation coroutines
     implementation core_ktx
-
     implementation appcompat
     implementation material
 
-    implementation dagger.dagger
-    kapt dagger.compiler
-
     testImplementation test.junit
+
+    androidTestImplementation test.androidx_ext
+    androidTestImplementation test.espresso
 }

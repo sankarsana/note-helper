@@ -1,10 +1,9 @@
-package com.bhaktaprogram.main.custom.view
+package com.bhaktaprogram.calendarview
 
 import android.content.Context
 import android.graphics.Paint
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
-import com.bhaktaprogram.main.R
 
 class Paints(private val context: Context) {
 
