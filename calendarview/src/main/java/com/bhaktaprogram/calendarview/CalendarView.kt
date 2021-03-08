@@ -17,7 +17,7 @@ class CalendarView @JvmOverloads constructor(
     private val paints = Paints(context)
     private var lastTouchX = 0f
     private var lastTouchY = 0f
-    private val dayRect = DayRect(
+    private val dimensions = Dimensions(
         resources.getDimensionPixelSize(R.dimen.day_of_month_default_padding).toFloat()
     )
     private val minTouchDistance = 2 * resources.displayMetrics.density + 0.5f
@@ -57,11 +57,11 @@ class CalendarView @JvmOverloads constructor(
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
-        dayRect.onViewSizeChanged(width, height)
+        dimensions.onViewSizeChanged(width, height)
     }
 
     override fun onDraw(canvas: Canvas) {
-        dayRect.reset()
+        dimensions.reset()
         days.forEachIndexed { index, day ->
             if (day.eventType != null && day.currentMonth) drawEvent(canvas, day)
             if (day.isToday) drawToday(canvas)
@@ -69,7 +69,7 @@ class CalendarView @JvmOverloads constructor(
                 drawSelection(canvas)
             }
             drawNumber(canvas, day)
-            dayRect.moveToNext()
+            dimensions.moveToNext()
         }
     }
 
@@ -83,25 +83,26 @@ class CalendarView @JvmOverloads constructor(
 
     private fun drawDoubleEvent(canvas: Canvas) {
         val paint1 = paints.getForEvent(EventType.MostImportant)
-        canvas.drawArc(dayRect, 90F, 180F, false, paint1)
+        canvas.drawArc(dimensions.dayRect, 90F, 180F, false, paint1)
         val paint2 = paints.getForEvent(EventType.Important)
-        canvas.drawArc(dayRect, -90F, 180F, false, paint2)
+        canvas.drawArc(dimensions.dayRect, -90F, 180F, false, paint2)
     }
 
     private fun drawCircleEvent(day: DayOfMonthUi, canvas: Canvas) {
         val paint = paints.getForEvent(day.eventType ?: return)
-        canvas.drawOval(dayRect, paint)
+        canvas.drawOval(dimensions.dayRect, paint)
     }
 
-    private fun drawToday(canvas: Canvas) = canvas.drawOval(dayRect, paints.todayPaint)
+    private fun drawToday(canvas: Canvas) = canvas.drawOval(dimensions.dayRect, paints.todayPaint)
 
-    private fun drawSelection(canvas: Canvas) = canvas.drawOval(dayRect, paints.selectionPaint)
+    private fun drawSelection(canvas: Canvas) =
+        canvas.drawOval(dimensions.dayRect, paints.selectionPaint)
 
     private fun drawNumber(canvas: Canvas, day: DayOfMonthUi) {
         val numberPaint = paints.getForText(day)
         val offsetY = (numberPaint.descent() + numberPaint.ascent()) / 2
-        val y = dayRect.centerY() - offsetY
-        canvas.drawText(day.number, dayRect.centerX(), y, numberPaint)
+        val y = dimensions.dayRect.centerY() - offsetY
+        canvas.drawText(day.number, dimensions.dayRect.centerX(), y, numberPaint)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -121,7 +122,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun performDayClick(x: Float, y: Float) {
-        val index = dayRect.findCellIndex(x, y)
+        val index = dimensions.findCellIndex(x, y)
         val day = days[index]
         if (day.currentMonth) {
             selectIndex = index
