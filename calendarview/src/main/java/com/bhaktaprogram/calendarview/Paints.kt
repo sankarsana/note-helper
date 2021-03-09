@@ -2,6 +2,7 @@ package com.bhaktaprogram.calendarview
 
 import android.content.Context
 import android.graphics.Paint
+import android.text.TextPaint
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 
@@ -17,18 +18,18 @@ class Paints(private val context: Context) {
     private val eventImportant = getColor(R.color.important_event)
     private val eventSimple = getColor(R.color.simple_event)
 
-    private val numberPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    val dayPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
-        textSize = getDimensionPixelSize(R.dimen.day_text_size).toFloat()
+        textSize = getDimensionPixelSize(R.dimen.day_text_size)
     }
 
-    private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    val eventPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
     }
 
     val todayPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = getDimensionPixelSize(R.dimen.day_of_month_today_border).toFloat()
+        strokeWidth = getDimensionPixelSize(R.dimen.day_of_month_today_border)
         color = getColor(R.color.day_of_month_today)
     }
 
@@ -38,39 +39,26 @@ class Paints(private val context: Context) {
         color = getColor(R.color.day_of_month_focus)
     }
 
-    fun getForEvent(eventType: EventType) = circlePaint.apply {
-        color = getEventColor(eventType)
+    fun getDayTextColor(event: EventType?) = when (event) {
+        EventType.MostImportant -> numberMostImportant
+        EventType.DoubleImportant -> numberDoubleImportant
+        EventType.Important -> numberImportant
+        EventType.Simple -> numberSimple
+        else -> numberNothing
     }
 
-    fun getForText(day: DayOfMonthUi) = numberPaint.apply {
-        color = getTextColor(day)
-    }
-
-    private fun getTextColor(day: DayOfMonthUi): Int {
-        return when {
-            !day.currentMonth -> getColor(R.color.number_another_month)
-            day.eventType == null -> numberNothing
-            else -> when (day.eventType) {
-                EventType.MostImportant -> numberMostImportant
-                EventType.DoubleImportant -> numberDoubleImportant
-                EventType.Important -> numberImportant
-                EventType.Simple -> numberSimple
-            }
-        }
-    }
-
-    private fun getDimensionPixelSize(@DimenRes id: Int) =
-        context.resources.getDimensionPixelSize(id).toFloat()
-
-    private fun getColor(@ColorRes id: Int) =
-        context.resources.getColor(id, null)
-
-
-    private fun getEventColor(eventType: EventType): Int = when (eventType) {
+    fun getEventColor(eventType: EventType): Int = when (eventType) {
         EventType.MostImportant -> eventMostImportant
         EventType.Important -> eventImportant
         EventType.Simple -> eventSimple
         else -> throw IllegalArgumentException("No color for $eventType")
     }
+
+    private fun getDimensionPixelSize(@DimenRes id: Int) =
+        context.resources.getDimensionPixelSize(id).toFloat()
+
+
+    private fun getColor(@ColorRes id: Int) =
+        context.resources.getColor(id, null)
 
 }

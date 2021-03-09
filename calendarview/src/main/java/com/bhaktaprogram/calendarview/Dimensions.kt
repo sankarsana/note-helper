@@ -1,42 +1,29 @@
 package com.bhaktaprogram.calendarview
 
-import android.graphics.RectF
+import android.content.res.Resources
+import androidx.annotation.DimenRes
 import kotlin.math.min
 
-class Dimensions(private val dayCellPadding: Float) {
-    val dayRect = RectF()
-    private var cellWidth = 0f
-    private var cellHeight = 0f
-    private var cellHorizontalPadding = 0f
-    private var cellVerticalPadding = 0f
-    private var circleDiameter = 0f
-    private var viewWidth = 0
+class Dimensions(private val resources: Resources) {
+    var cellWidth = 0f
+        private set
+    var cellHeight = 0f
+        private set
+    var selectionRadius = 0f
+        private set
 
     fun onViewSizeChanged(width: Int, height: Int) {
-        viewWidth = width
+        val cellMinPadding = getDimensionPixelSize(R.dimen.day_of_month_min_padding)
+        val maxDiameter = getDimensionPixelSize(R.dimen.day_of_month_selected_diameter)
         cellWidth = width.toFloat() / CalendarView.COLUMNS
         cellHeight = height.toFloat() / CalendarView.ROWS
-        circleDiameter = min(cellWidth, cellHeight) - dayCellPadding * 2
-        cellHorizontalPadding = (cellWidth - circleDiameter) / 2
-        cellVerticalPadding = (cellHeight - circleDiameter) / 2
+        val diameterByCell = min(cellWidth, cellHeight) - cellMinPadding * 2
+        val realDiameter = if (diameterByCell > maxDiameter) maxDiameter else diameterByCell
+        selectionRadius = realDiameter / 2
     }
 
-    fun reset() {
-        dayRect.set(
-            cellHorizontalPadding,
-            cellVerticalPadding,
-            cellHorizontalPadding + circleDiameter,
-            cellVerticalPadding + circleDiameter
-        )
-    }
-
-    fun moveToNext() {
-        if (dayRect.right + cellWidth <= viewWidth) {
-            dayRect.offset(cellWidth, 0f)
-        } else {
-            dayRect.offsetTo(cellHorizontalPadding, dayRect.top + cellHeight)
-        }
-    }
+    private fun getDimensionPixelSize(@DimenRes resId: Int) =
+        resources.getDimensionPixelSize(resId).toFloat()
 
     fun findCellIndex(x: Float, y: Float): Int {
         val coll = (x / cellWidth).toInt()

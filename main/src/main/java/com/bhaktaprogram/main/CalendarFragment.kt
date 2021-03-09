@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.bhaktaprogram.calendarview.CalendarView
 import com.bhaktaprogram.calendarview.DayOfMonthUi
 import com.bhaktaprogram.calendarview.FakeDaysRepository
+import java.util.*
 
 class CalendarFragment : Fragment(R.layout.calendar_fragment) {
 
@@ -14,7 +15,8 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val calendar = view.findViewById<CalendarView>(R.id.calendar)
-        calendar.setData(FakeDaysRepository.get(), -1)
+        calendar.setMonthParams(9, Calendar.MARCH, 2021, Calendar.MONDAY)
+        calendar.setEvents(FakeDaysRepository.getEvents())
         calendar.setOnDaySelectListener(::onDaySelected)
     }
 

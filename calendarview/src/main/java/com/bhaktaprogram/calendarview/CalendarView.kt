@@ -3,106 +3,124 @@ package com.bhaktaprogram.calendarview
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import java.util.*
 import kotlin.math.abs
 
 class CalendarView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null
 ) : View(context, attributeSet) {
-
-    private var days = emptyList<DayOfMonthUi>()
     private val paints = Paints(context)
     private var lastTouchX = 0f
     private var lastTouchY = 0f
-    private val dimensions = Dimensions(
-        resources.getDimensionPixelSize(R.dimen.day_of_month_default_padding).toFloat()
-    )
+    private val dim = Dimensions(resources)
     private val minTouchDistance = 2 * resources.displayMetrics.density + 0.5f
-    private var selectIndex = -1
     private var onDaySelected: (DayOfMonthUi) -> Unit = {}
 
+    private val calendar = Calendar.getInstance(resources.configuration.locale)
+    private var weekStart = Calendar.SUNDAY
+    private var dayOfWeekStart = 0
+    private var daysInMonth = 0
+    private var selectedDay = -1
+    private var today = -1
+
+    private val rect = RectF()
+
+    private var events = hashMapOf<Int, EventType>()
+
     init {
-        if (isInEditMode) days = FakeDaysRepository.get()
+        if (isInEditMode) {
+            setMonthParams(4, Calendar.MARCH, 2021, Calendar.MONDAY)
+            setEvents(FakeDaysRepository.getEvents())
+        }
     }
 
-    fun setData(days: List<DayOfMonthUi>, selectIndex: Int) {
-        if (days.size != COLUMNS * ROWS) {
-            val msg = "The number of days should be ${COLUMNS * ROWS}. Actual is ${days.size}"
-            throw IllegalArgumentException(msg)
-        }
-        this.days = days
-        this.selectIndex = selectIndex
+    fun setMonthParams(selectedDay: Int, month: Int, year: Int, weekStart: Int) {
+        this.selectedDay = selectedDay
+        this.weekStart = weekStart
+        calendar.set(year, month, 1)
+        dayOfWeekStart = calendar[Calendar.DAY_OF_WEEK]
+        daysInMonth = getDaysInMonth(month, year)
+
+        updateToday(year, month)
+
         invalidate()
+    }
+
+    fun setEvents(events: HashMap<Int, EventType>) {
+        this.events = events
+        invalidate()
+    }
+
+    private fun updateToday(year: Int, month: Int) {
+        val todayCalendar = Calendar.getInstance()
+        today = if (
+            todayCalendar[Calendar.YEAR] == year
+            && todayCalendar[Calendar.MONTH] == month
+        ) todayCalendar[Calendar.DAY_OF_MONTH] else -1
     }
 
     fun setOnDaySelectListener(listener: (DayOfMonthUi) -> Unit) {
         onDaySelected = listener
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val width = if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.UNSPECIFIED) {
-            resources.getDimensionPixelSize(R.dimen.calendar_default_width)
-        } else {
-            MeasureSpec.getSize(widthMeasureSpec)
-        }
-        val height = if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED) {
-            resources.getDimensionPixelSize(R.dimen.calendar_default_height)
-        } else {
-            MeasureSpec.getSize(heightMeasureSpec)
-        }
-        setMeasuredDimension(width, height)
-    }
-
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
-        dimensions.onViewSizeChanged(width, height)
+        dim.onViewSizeChanged(width, height)
     }
 
     override fun onDraw(canvas: Canvas) {
-        dimensions.reset()
-        days.forEachIndexed { index, day ->
-            if (day.eventType != null && day.currentMonth) drawEvent(canvas, day)
-            if (day.isToday) drawToday(canvas)
-            if (selectIndex == index) {
-                drawSelection(canvas)
+        val dayPaint = paints.dayPaint
+        val eventPaint = paints.eventPaint
+        val halfLineHeight: Float = (dayPaint.ascent() + dayPaint.descent()) / 2f
+        var rowCenter = dim.cellHeight / 2
+        var col = findDayOffset()
+        val radius = dim.selectionRadius
+
+        for (day in 1..daysInMonth) {
+            val colCenter = dim.cellWidth * col + dim.cellWidth / 2
+            val event = events[day]
+
+            if (event == EventType.DoubleImportant) {
+                rect.set(
+                    colCenter - radius,
+                    rowCenter - radius,
+                    colCenter + radius,
+                    rowCenter + radius
+                )
+                eventPaint.color = paints.getEventColor(EventType.MostImportant)
+                canvas.drawArc(rect, 90F, 180F, false, eventPaint)
+                eventPaint.color = paints.getEventColor(EventType.Important)
+                canvas.drawArc(rect, -90F, 180F, false, eventPaint)
+            } else if (event != null) {
+                eventPaint.color = paints.getEventColor(event)
+                canvas.drawCircle(colCenter, rowCenter, dim.selectionRadius, eventPaint)
             }
-            drawNumber(canvas, day)
-            dimensions.moveToNext()
+
+            if (today == day) {
+                canvas.drawCircle(colCenter, rowCenter, dim.selectionRadius, paints.todayPaint)
+            }
+            if (day == selectedDay) {
+                canvas.drawCircle(colCenter, rowCenter, dim.selectionRadius, paints.selectionPaint)
+            }
+
+            dayPaint.color = paints.getDayTextColor(event)
+            canvas.drawText(day.toString(), colCenter, rowCenter - halfLineHeight, dayPaint)
+
+            col++
+            if (col == COLUMNS) {
+                col = 0
+                rowCenter += dim.cellHeight
+            }
         }
     }
 
-    private fun drawEvent(canvas: Canvas, day: DayOfMonthUi) {
-        if (day.eventType == EventType.DoubleImportant) {
-            drawDoubleEvent(canvas)
-        } else {
-            drawCircleEvent(day, canvas)
-        }
-    }
-
-    private fun drawDoubleEvent(canvas: Canvas) {
-        val paint1 = paints.getForEvent(EventType.MostImportant)
-        canvas.drawArc(dimensions.dayRect, 90F, 180F, false, paint1)
-        val paint2 = paints.getForEvent(EventType.Important)
-        canvas.drawArc(dimensions.dayRect, -90F, 180F, false, paint2)
-    }
-
-    private fun drawCircleEvent(day: DayOfMonthUi, canvas: Canvas) {
-        val paint = paints.getForEvent(day.eventType ?: return)
-        canvas.drawOval(dimensions.dayRect, paint)
-    }
-
-    private fun drawToday(canvas: Canvas) = canvas.drawOval(dimensions.dayRect, paints.todayPaint)
-
-    private fun drawSelection(canvas: Canvas) =
-        canvas.drawOval(dimensions.dayRect, paints.selectionPaint)
-
-    private fun drawNumber(canvas: Canvas, day: DayOfMonthUi) {
-        val numberPaint = paints.getForText(day)
-        val offsetY = (numberPaint.descent() + numberPaint.ascent()) / 2
-        val y = dimensions.dayRect.centerY() - offsetY
-        canvas.drawText(day.number, dimensions.dayRect.centerX(), y, numberPaint)
+    private fun findDayOffset(): Int {
+        val offset: Int = dayOfWeekStart - weekStart
+        return if (dayOfWeekStart < weekStart) offset + ROWS else offset
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -122,17 +140,27 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun performDayClick(x: Float, y: Float) {
-        val index = dimensions.findCellIndex(x, y)
-        val day = days[index]
-        if (day.currentMonth) {
-            selectIndex = index
-            invalidate()
-            onDaySelected(day)
-        }
+//        val index = dim.findCellIndex(x, y)
+//        val day = days[index]
+//        if (day.currentMonth) {
+//            selectIndex = index
+//            invalidate()
+//            onDaySelected(day)
+//        }
     }
 
     companion object {
         const val COLUMNS = 7
         const val ROWS = 6
+
+        private fun getDaysInMonth(month: Int, year: Int): Int {
+            return when (month) {
+                Calendar.JANUARY, Calendar.MARCH, Calendar.MAY,
+                Calendar.JULY, Calendar.AUGUST, Calendar.OCTOBER, Calendar.DECEMBER -> 31
+                Calendar.APRIL, Calendar.JUNE, Calendar.SEPTEMBER, Calendar.NOVEMBER -> 30
+                Calendar.FEBRUARY -> if (year % 4 == 0) 29 else 28
+                else -> throw java.lang.IllegalArgumentException("Invalid Month")
+            }
+        }
     }
 }
