@@ -77,12 +77,16 @@ class CalendarView @JvmOverloads constructor(
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
-        dim.onViewSizeChanged(width, height)
+        dim.onViewSizeChanged(width, height, paddingLeft, paddingTop, paddingRight, paddingBottom)
     }
 
     override fun onDraw(canvas: Canvas) {
+        canvas.translate(dim.paddingLeft, dim.paddingTop)
+
         drawDaysOfWeek(canvas)
         drawDays(canvas)
+
+        canvas.translate(-dim.paddingLeft, -dim.paddingTop)
     }
 
     private fun drawDaysOfWeek(canvas: Canvas) {
