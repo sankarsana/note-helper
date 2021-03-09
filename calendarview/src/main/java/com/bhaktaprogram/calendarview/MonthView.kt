@@ -10,7 +10,7 @@ import android.view.View
 import java.util.*
 import kotlin.math.abs
 
-class CalendarView @JvmOverloads constructor(
+class MonthView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null
 ) : View(context, attributeSet) {
@@ -21,7 +21,7 @@ class CalendarView @JvmOverloads constructor(
     private var lastTouchY = 0f
     private var onDaySelected: (Calendar) -> Unit = {}
 
-    private val calendar = Calendar.getInstance(/*resources.configuration.locale*/)
+    private val calendar = Calendar.getInstance()
     private var weekStart = Calendar.SUNDAY
     private var dayOfWeekStart = 0
     private var daysInMonth = 0
@@ -66,9 +66,9 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun updateDayOfWeekLabels() {
-        val labels = resources.getStringArray(R.array.day_offweek_labels)
-        for (i in 0 until COLUMNS) {
-            dayOfWeekLabels[i] = labels[(i + weekStart - 1) % COLUMNS]
+        val labels = resources.getStringArray(R.array.day_off_week_labels)
+        for (i in 0 until DAYS_IN_WEEK) {
+            dayOfWeekLabels[i] = labels[(i + weekStart - 1) % DAYS_IN_WEEK]
         }
     }
 
@@ -93,7 +93,7 @@ class CalendarView @JvmOverloads constructor(
         val paint = paints.dayOfWeekPaint
         val halfLineHeight = (paint.ascent() + paint.descent()) / 2
         val y = dim.dayOfWeekHeight / 2 - halfLineHeight
-        for (col in 0 until COLUMNS) {
+        for (col in 0 until DAYS_IN_WEEK) {
             val x = dim.cellWidth * col + dim.cellWidth / 2
             val label = dayOfWeekLabels[col]
             canvas.drawText(label, x, y, paint)
@@ -139,7 +139,7 @@ class CalendarView @JvmOverloads constructor(
             canvas.drawText(day.toString(), colCenter, rowCenter - halfLineHeight, dayPaint)
 
             col++
-            if (col == COLUMNS) {
+            if (col == DAYS_IN_WEEK) {
                 col = 0
                 rowCenter += dim.cellHeight
             }
@@ -148,7 +148,7 @@ class CalendarView @JvmOverloads constructor(
 
     private fun findDayOffset(): Int {
         val offset: Int = dayOfWeekStart - weekStart
-        return if (dayOfWeekStart < weekStart) offset + ROWS else offset
+        return if (dayOfWeekStart < weekStart) offset + MAX_WEEKS_IN_MONTH else offset
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -169,8 +169,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun performDayClick(x: Float, y: Float) {
-        val index = dim.findCellIndex(x, y)
-        val day = index + 1 + findDayOffset()
+        val day = getDayAtLocation(x, y)
         if (isValidDayOfMonth(day)) {
             selectedDay = day
             invalidate()
@@ -180,11 +179,16 @@ class CalendarView @JvmOverloads constructor(
         }
     }
 
+    private fun getDayAtLocation(x: Float, y: Float): Int {
+        val index = dim.findCellIndex(x, y)
+        return index + 1 + findDayOffset()
+    }
+
     private fun isValidDayOfMonth(day: Int) = day in 1..daysInMonth
 
     companion object {
-        const val COLUMNS = 7
-        const val ROWS = 6
+        const val DAYS_IN_WEEK = 7
+        const val MAX_WEEKS_IN_MONTH = 6
 
         private fun getDaysInMonth(month: Int, year: Int): Int {
             return when (month) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <array name="day_offweek_labels">
+    <array name="day_off_week_labels">
         <item>ВС</item>
         <item>ПН</item>
         <item>ВТ</item>

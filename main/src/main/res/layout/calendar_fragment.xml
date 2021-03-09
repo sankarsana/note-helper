@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#17707070">
 
-    <com.bhaktaprogram.calendarview.CalendarView
+    <com.bhaktaprogram.calendarview.MonthView
         android:id="@+id/calendar"
         android:layout_width="0dp"
         android:layout_height="340dp"

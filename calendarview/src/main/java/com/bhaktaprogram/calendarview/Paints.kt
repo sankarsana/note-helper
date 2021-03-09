@@ -62,7 +62,6 @@ class Paints(private val context: Context) {
     private fun getDimensionPixelSize(@DimenRes id: Int) =
         context.resources.getDimensionPixelSize(id).toFloat()
 
-
     private fun getColor(@ColorRes id: Int) =
         context.resources.getColor(id, null)
 

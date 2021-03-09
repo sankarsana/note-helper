@@ -37,8 +37,8 @@ class Dimensions(private val resources: Resources) {
         this.paddingTop = paddingTop.toFloat()
         paddedWidth = (width - paddingLeft - paddingRight).toFloat()
         paddedHeight = (height - paddingTop - paddingBottom).toFloat()
-        cellWidth = paddedWidth / CalendarView.COLUMNS
-        cellHeight = (paddedHeight - dayOfWeekHeight) / CalendarView.ROWS
+        cellWidth = paddedWidth / MonthView.DAYS_IN_WEEK
+        cellHeight = (paddedHeight - dayOfWeekHeight) / MonthView.MAX_WEEKS_IN_MONTH
         val diameterByCell = min(cellWidth, cellHeight) - cellMinPadding * 2
         val realDiameter = if (diameterByCell > maxDiameter) maxDiameter else diameterByCell
         selectionRadius = realDiameter / 2
@@ -60,6 +60,6 @@ class Dimensions(private val resources: Resources) {
 
         val coll = (paddedX / cellWidth).toInt()
         val row = (paddedY / cellHeight).toInt()
-        return row * CalendarView.COLUMNS + coll
+        return row * MonthView.DAYS_IN_WEEK + coll
     }
 }
