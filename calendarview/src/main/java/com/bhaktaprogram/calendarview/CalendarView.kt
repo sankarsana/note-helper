@@ -15,20 +15,18 @@ class CalendarView @JvmOverloads constructor(
     attributeSet: AttributeSet? = null
 ) : View(context, attributeSet) {
     private val paints = Paints(context)
+    private val dim = Dimensions(resources)
+    private val rect = RectF()
     private var lastTouchX = 0f
     private var lastTouchY = 0f
-    private val dim = Dimensions(resources)
-    private val minTouchDistance = 2 * resources.displayMetrics.density + 0.5f
-    private var onDaySelected: (DayOfMonthUi) -> Unit = {}
+    private var onDaySelected: (Calendar) -> Unit = {}
 
-    private val calendar = Calendar.getInstance(resources.configuration.locale)
+    private val calendar = Calendar.getInstance(/*resources.configuration.locale*/)
     private var weekStart = Calendar.SUNDAY
     private var dayOfWeekStart = 0
     private var daysInMonth = 0
     private var selectedDay = -1
     private var today = -1
-
-    private val rect = RectF()
 
     private var events = hashMapOf<Int, EventType>()
 
@@ -64,7 +62,7 @@ class CalendarView @JvmOverloads constructor(
         ) todayCalendar[Calendar.DAY_OF_MONTH] else -1
     }
 
-    fun setOnDaySelectListener(listener: (DayOfMonthUi) -> Unit) {
+    fun setOnDaySelectListener(listener: (Calendar) -> Unit) {
         onDaySelected = listener
     }
 
@@ -131,6 +129,7 @@ class CalendarView @JvmOverloads constructor(
                 lastTouchY = event.y
             }
             MotionEvent.ACTION_UP -> {
+                val minTouchDistance = 2 * resources.displayMetrics.density + 0.5f
                 val isClick = abs(event.x - lastTouchX) <= minTouchDistance
                         && abs(event.y - lastTouchY) <= minTouchDistance
                 if (isClick) performDayClick(event.x, event.y)
@@ -140,14 +139,18 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun performDayClick(x: Float, y: Float) {
-//        val index = dim.findCellIndex(x, y)
-//        val day = days[index]
-//        if (day.currentMonth) {
-//            selectIndex = index
-//            invalidate()
-//            onDaySelected(day)
-//        }
+        val index = dim.findCellIndex(x, y)
+        val day = index + 1 + findDayOffset()
+        if (isValidDayOfMonth(day)) {
+            selectedDay = day
+            invalidate()
+            val date = Calendar.getInstance()
+            date.set(calendar[Calendar.YEAR], calendar[Calendar.MONTH], day)
+            onDaySelected(date)
+        }
     }
+
+    private fun isValidDayOfMonth(day: Int) = day in 1..daysInMonth
 
     companion object {
         const val COLUMNS = 7

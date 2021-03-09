@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.bhaktaprogram.calendarview.CalendarView
-import com.bhaktaprogram.calendarview.DayOfMonthUi
 import com.bhaktaprogram.calendarview.FakeDaysRepository
 import java.util.*
 
@@ -20,7 +19,7 @@ class CalendarFragment : Fragment(R.layout.calendar_fragment) {
         calendar.setOnDaySelectListener(::onDaySelected)
     }
 
-    private fun onDaySelected(day: DayOfMonthUi) {
-        Log.i("TAG", "selected day: $day")
+    private fun onDaySelected(calendar: Calendar) {
+        Log.i("TAG", "selected day: ${calendar[Calendar.DAY_OF_MONTH]}")
     }
 }
