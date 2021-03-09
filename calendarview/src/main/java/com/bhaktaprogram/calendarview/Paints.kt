@@ -23,6 +23,11 @@ class Paints(private val context: Context) {
         textSize = getDimensionPixelSize(R.dimen.day_text_size)
     }
 
+    val dayOfWeekPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+        textAlign = Paint.Align.CENTER
+        textSize = getDimensionPixelSize(R.dimen.days_of_week_text)
+    }
+
     val eventPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
     }

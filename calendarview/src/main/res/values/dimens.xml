@@ -7,4 +7,6 @@
     <dimen name="day_of_month_min_padding">3dp</dimen>
     <dimen name="calendar_default_width">400dp</dimen>
     <dimen name="calendar_default_height">316dp</dimen>
+    <dimen name="days_of_week_height">32dp</dimen>
+    <dimen name="days_of_week_text">10sp</dimen>
 </resources>

@@ -29,12 +29,14 @@ class CalendarView @JvmOverloads constructor(
     private var today = -1
 
     private var events = hashMapOf<Int, EventType>()
+    private val dayOfWeekLabels = Array(7) { "" }
 
     init {
         if (isInEditMode) {
             setMonthParams(4, Calendar.MARCH, 2021, Calendar.MONDAY)
             setEvents(FakeDaysRepository.getEvents())
         }
+        updateDayOfWeekLabels()
     }
 
     fun setMonthParams(selectedDay: Int, month: Int, year: Int, weekStart: Int) {
@@ -45,6 +47,7 @@ class CalendarView @JvmOverloads constructor(
         daysInMonth = getDaysInMonth(month, year)
 
         updateToday(year, month)
+        updateDayOfWeekLabels()
 
         invalidate()
     }
@@ -62,6 +65,13 @@ class CalendarView @JvmOverloads constructor(
         ) todayCalendar[Calendar.DAY_OF_MONTH] else -1
     }
 
+    private fun updateDayOfWeekLabels() {
+        val labels = resources.getStringArray(R.array.day_offweek_labels)
+        for (i in 0 until COLUMNS) {
+            dayOfWeekLabels[i] = labels[(i + weekStart - 1) % COLUMNS]
+        }
+    }
+
     fun setOnDaySelectListener(listener: (Calendar) -> Unit) {
         onDaySelected = listener
     }
@@ -71,10 +81,26 @@ class CalendarView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
+        drawDaysOfWeek(canvas)
+        drawDays(canvas)
+    }
+
+    private fun drawDaysOfWeek(canvas: Canvas) {
+        val paint = paints.dayOfWeekPaint
+        val halfLineHeight = (paint.ascent() + paint.descent()) / 2
+        val y = dim.dayOfWeekHeight / 2 - halfLineHeight
+        for (col in 0 until COLUMNS) {
+            val x = dim.cellWidth * col + dim.cellWidth / 2
+            val label = dayOfWeekLabels[col]
+            canvas.drawText(label, x, y, paint)
+        }
+    }
+
+    private fun drawDays(canvas: Canvas) {
         val dayPaint = paints.dayPaint
         val eventPaint = paints.eventPaint
         val halfLineHeight: Float = (dayPaint.ascent() + dayPaint.descent()) / 2f
-        var rowCenter = dim.cellHeight / 2
+        var rowCenter = dim.dayOfWeekHeight + dim.cellHeight / 2
         var col = findDayOffset()
         val radius = dim.selectionRadius
 

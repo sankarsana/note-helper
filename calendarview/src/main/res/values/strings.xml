@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="day_offweek_labels">
+        <item>SU</item>
+        <item>MO</item>
+        <item>TU</item>
+        <item>WE</item>
+        <item>TH</item>
+        <item>FR</item>
+        <item>SA</item>
+    </array>
+
+</resources>
