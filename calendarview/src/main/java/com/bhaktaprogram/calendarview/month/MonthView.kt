@@ -58,6 +58,22 @@ class MonthView @JvmOverloads constructor(
         invalidate()
     }
 
+    fun setSelectedDay(dayOfMonth: Int) {
+        selectedDay = dayOfMonth
+        invalidate()
+    }
+
+    fun setFirstDayOfWeek(weekStart: Int) {
+        val validDayOfWeek = isValidDayOfWeek(weekStart)
+        this.weekStart = if (validDayOfWeek) weekStart else calendar.firstDayOfWeek
+        updateDayOfWeekLabels()
+        invalidate()
+    }
+
+    fun setOnDaySelectListener(listener: (Calendar) -> Unit) {
+        onDaySelected = listener
+    }
+
     private fun updateToday(year: Int, month: Int) {
         val todayCalendar = Calendar.getInstance()
         today = if (
@@ -71,10 +87,6 @@ class MonthView @JvmOverloads constructor(
         for (i in 0 until DAYS_IN_WEEK) {
             dayOfWeekLabels[i] = labels[(i + weekStart - 1) % DAYS_IN_WEEK]
         }
-    }
-
-    fun setOnDaySelectListener(listener: (Calendar) -> Unit) {
-        onDaySelected = listener
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldWidth: Int, oldHeight: Int) {
@@ -182,10 +194,12 @@ class MonthView @JvmOverloads constructor(
 
     private fun getDayAtLocation(x: Float, y: Float): Int {
         val index = dim.findCellIndex(x, y)
-        return index + 1 + findDayOffset()
+        return index + 1 - findDayOffset()
     }
 
     private fun isValidDayOfMonth(day: Int) = day in 1..daysInMonth
+
+    private fun isValidDayOfWeek(day: Int) = day >= Calendar.SUNDAY && day <= Calendar.SATURDAY
 
     companion object {
         const val DAYS_IN_WEEK = 7
