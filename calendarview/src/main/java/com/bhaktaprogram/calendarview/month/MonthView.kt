@@ -1,4 +1,4 @@
-package com.bhaktaprogram.calendarview
+package com.bhaktaprogram.calendarview.month
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,6 +7,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import com.bhaktaprogram.calendarview.R
 import java.util.*
 import kotlin.math.abs
 

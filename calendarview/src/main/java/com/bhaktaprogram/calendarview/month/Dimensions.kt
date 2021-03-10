@@ -1,7 +1,8 @@
-package com.bhaktaprogram.calendarview
+package com.bhaktaprogram.calendarview.month
 
 import android.content.res.Resources
 import androidx.annotation.DimenRes
+import com.bhaktaprogram.calendarview.R
 import kotlin.math.min
 
 class Dimensions(private val resources: Resources) {

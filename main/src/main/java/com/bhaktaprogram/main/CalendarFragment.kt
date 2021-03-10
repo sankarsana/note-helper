@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.bhaktaprogram.calendarview.FakeDaysRepository
-import com.bhaktaprogram.calendarview.MonthView
+import com.bhaktaprogram.calendarview.month.FakeDaysRepository
+import com.bhaktaprogram.calendarview.month.MonthView
 import java.util.*
 
 class CalendarFragment : Fragment(R.layout.calendar_fragment) {
