@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
@@ -11,13 +11,13 @@ android {
     buildToolsVersion versions.build_tools
 
     defaultConfig {
-        applicationId "com.bhaktaprogram.notehelper"
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -31,7 +31,7 @@ android {
         targetCompatibility versions.java
     }
     kotlinOptions {
-        jvmTarget = versions.java.toString().toString()
+        jvmTarget = versions.java.toString()
     }
     buildFeatures {
         viewBinding true
@@ -40,10 +40,7 @@ android {
 
 dependencies {
 
-    implementation project(':repository')
-    implementation project(':main')
     implementation project(':core:core')
-    implementation project(':features:notes')
 
     implementation kotlin
     implementation coroutines
@@ -51,9 +48,11 @@ dependencies {
     implementation appcompat
     implementation material
 
-    implementation retrofit.retrofit
-    implementation retrofit.converter_gson
-    implementation okhttp3.logging_interceptor
+    implementation lifecycle.viewmodel_ktx
+    implementation lifecycle.runtime_ktx
+    implementation lifecycle.common_java8
+
+    implementation recyclerview
 
     implementation dagger.dagger
     kapt dagger.compiler
