@@ -1,0 +1,60 @@
+ext.versions = [
+        compile_sdk: 30,
+        build_tools: "30.0.3",
+        min_sdk    : 23,
+        target_sdk : 30,
+        java       : JavaVersion.VERSION_1_8,
+
+        gradle     : '4.1.2',
+        kotlin     : '1.4.31',
+        lifecycle  : '2.3.0',
+        coroutines : '1.4.2',
+        timber     : '4.7.1',
+        room       : '2.2.6',
+        retrofit   : '2.9.0',
+        okhttp3    : '4.9.0',
+        dagger     : '2.33',
+
+        truth      : '1.3.0'
+]
+
+ext.kotlin = "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+ext.coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+ext.appcompat = "androidx.appcompat:appcompat:1.2.0"
+ext.material = "com.google.android.material:material:1.3.0"
+ext.constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
+ext.recyclerview = "androidx.recyclerview:recyclerview:1.1.0"
+ext.core_ktx = "androidx.core:core-ktx:1.3.2"
+
+ext.lifecycle = [
+        viewmodel_ktx: "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle",
+        runtime_ktx  : "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle",
+        common_java8 : "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+]
+
+ext.retrofit = [
+        retrofit      : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+        converter_gson: "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+]
+
+ext.okhttp3 = [
+        okhttp             : "com.squareup.okhttp3:okhttp:$versions.okhttp3",
+        logging_interceptor: "com.squareup.okhttp3:logging-interceptor:$versions.okhttp3"
+]
+
+ext.dagger = [
+        dagger  : "com.google.dagger:dagger:$versions.dagger",
+        compiler: "com.google.dagger:dagger-compiler:$versions.dagger"
+]
+
+ext.room = [
+        runtime : "androidx.room:room-runtime:$versions.room",
+        ktx     : "androidx.room:room-ktx:$versions.room",
+        compiler: "androidx.room:room-compiler:$versions.room",
+]
+
+ext.test = [
+        junit       : 'junit:junit:4.13.2',
+        androidx_ext: 'androidx.test.ext:junit:1.1.2',
+        espresso    : 'androidx.test.espresso:espresso-core:3.3.0'
+]

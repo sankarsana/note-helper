@@ -1,7 +1,6 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
 }
 
 apply from: "$rootDir/versions.gradle"
@@ -11,13 +10,13 @@ android {
     buildToolsVersion versions.build_tools
 
     defaultConfig {
-        applicationId "com.bhaktaprogram.notehelper"
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -31,35 +30,14 @@ android {
         targetCompatibility versions.java
     }
     kotlinOptions {
-        jvmTarget = versions.java.toString().toString()
-    }
-    buildFeatures {
-        viewBinding true
+        jvmTarget = versions.java.toString()
     }
 }
 
 dependencies {
 
-    implementation project(':repository')
-    implementation project(':main')
-    implementation project(':core:core')
-    implementation project(':features:notes')
-
     implementation kotlin
-    implementation coroutines
     implementation core_ktx
-    implementation appcompat
-    implementation material
-
-    implementation retrofit.retrofit
-    implementation retrofit.converter_gson
-    implementation okhttp3.logging_interceptor
-
-    implementation dagger.dagger
-    kapt dagger.compiler
 
     testImplementation test.junit
-
-    androidTestImplementation test.androidx_ext
-    androidTestImplementation test.espresso
 }
