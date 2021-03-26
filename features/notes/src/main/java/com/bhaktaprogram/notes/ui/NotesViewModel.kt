@@ -2,7 +2,7 @@ package com.bhaktaprogram.notes.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bhaktaprogram.notes.domain.NoteInfo
+import com.bhaktaprogram.coreapi.dto.NoteInfo
 import com.bhaktaprogram.notes.domain.NotesInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

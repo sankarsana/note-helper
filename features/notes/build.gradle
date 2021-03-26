@@ -54,8 +54,8 @@ dependencies {
 
     implementation recyclerview
 
-    implementation dagger.dagger
-    kapt dagger.compiler
+    implementation dagger
+    kapt dagger_compiler
 
     testImplementation test.junit
 

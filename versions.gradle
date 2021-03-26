@@ -42,10 +42,8 @@ ext.okhttp3 = [
         logging_interceptor: "com.squareup.okhttp3:logging-interceptor:$versions.okhttp3"
 ]
 
-ext.dagger = [
-        dagger  : "com.google.dagger:dagger:$versions.dagger",
-        compiler: "com.google.dagger:dagger-compiler:$versions.dagger"
-]
+ext.dagger = "com.google.dagger:dagger:$versions.dagger"
+ext.dagger_compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
 
 ext.room = [
         runtime : "androidx.room:room-runtime:$versions.room",

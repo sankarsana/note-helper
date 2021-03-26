@@ -14,5 +14,5 @@ class App : Application(), AppFacade {
     }
 
     override fun getProvidersFacade(): ProvidersFacade = providersFacade
-        ?: DaggerAppComponent.create().also { providersFacade = it }
+        ?: AppComponent.init().also { providersFacade = it }
 }

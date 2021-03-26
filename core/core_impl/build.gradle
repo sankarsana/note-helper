@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 apply from: "$rootDir/versions.gradle"
@@ -41,6 +42,9 @@ dependencies {
 
     implementation kotlin
     implementation core_ktx
+
+    implementation dagger
+    kapt dagger_compiler
 
     testImplementation test.junit
 }

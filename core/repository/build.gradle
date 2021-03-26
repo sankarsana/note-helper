@@ -44,8 +44,8 @@ dependencies {
     implementation room.ktx
     kapt room.compiler
 
-    implementation dagger.dagger
-    kapt dagger.compiler
+    implementation dagger
+    kapt dagger_compiler
 
     testImplementation test.junit
 }

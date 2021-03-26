@@ -1,3 +1,5 @@
 package com.bhaktaprogram.coreapi
 
-interface ProvidersFacade : MediatorsProvider
+import com.bhaktaprogram.coreapi.repository.RepositoryProvider
+
+interface ProvidersFacade : MediatorsProvider, RepositoryProvider
