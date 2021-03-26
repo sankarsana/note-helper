@@ -5,7 +5,7 @@ ext.versions = [
         target_sdk : 30,
         java       : JavaVersion.VERSION_1_8,
 
-        gradle     : '4.1.2',
+        gradle     : '4.1.3',
         kotlin     : '1.4.31',
         lifecycle  : '2.3.0',
         coroutines : '1.4.2',
