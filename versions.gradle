@@ -59,3 +59,5 @@ ext.test = [
 
 // ViewBindingPropertyDelegate https://github.com/kirich1409/ViewBindingPropertyDelegate
 ext.view_binding_delegate = "com.github.kirich1409:viewbindingpropertydelegate:1.4.4"
+
+ext.timber = "com.jakewharton.timber:timber:4.7.1"

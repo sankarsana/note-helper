@@ -39,6 +39,8 @@ dependencies {
     api project(':core:core_api')
     implementation project(':core:core_impl')
 
+    api timber
+
     implementation kotlin
     implementation core_ktx
 

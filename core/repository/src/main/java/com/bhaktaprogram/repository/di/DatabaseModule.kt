@@ -1,6 +1,7 @@
 package com.bhaktaprogram.repository.di
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.bhaktaprogram.repository.database.AppDatabase
 import dagger.Module
@@ -20,4 +21,7 @@ object DatabaseModule {
             AppDatabase::class.java,
             DATABASE_NAME
         ).build()
+        .also {
+            Log.i("TAG", "create db")
+        }
 }
