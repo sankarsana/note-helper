@@ -56,3 +56,6 @@ ext.test = [
         androidx_ext: 'androidx.test.ext:junit:1.1.2',
         espresso    : 'androidx.test.espresso:espresso-core:3.3.0'
 ]
+
+// ViewBindingPropertyDelegate https://github.com/kirich1409/ViewBindingPropertyDelegate
+ext.view_binding_delegate = "com.github.kirich1409:viewbindingpropertydelegate:1.4.4"
