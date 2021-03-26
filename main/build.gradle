@@ -37,7 +37,7 @@ android {
 
 dependencies {
 
-    implementation project(':core:core_api')
+    implementation project(':core:core')
     implementation project(':features:notes')
 
     implementation kotlin
