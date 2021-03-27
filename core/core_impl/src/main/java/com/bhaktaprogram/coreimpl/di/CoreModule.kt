@@ -1,7 +1,7 @@
 package com.bhaktaprogram.coreimpl.di
 
 import com.bhaktaprogram.coreapi.repository.NoteRepository
-import com.bhaktaprogram.coreimpl.repository.NotesRepositoryStub
+import com.bhaktaprogram.coreimpl.repository.NoteRepositoryImpl
 import dagger.Binds
 import dagger.Module
 
@@ -9,5 +9,5 @@ import dagger.Module
 interface CoreModule {
 
     @Binds
-    fun bindNotesRepository(repo: NotesRepositoryStub): NoteRepository
+    fun bindNotesRepository(repo: NoteRepositoryImpl): NoteRepository
 }

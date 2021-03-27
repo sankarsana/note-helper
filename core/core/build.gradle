@@ -38,6 +38,7 @@ dependencies {
 
     api project(':core:core_api')
     implementation project(':core:core_impl')
+    implementation project(':core:repository')
 
     api timber
 

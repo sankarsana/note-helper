@@ -47,5 +47,7 @@ dependencies {
     implementation dagger
     kapt dagger_compiler
 
+    implementation timber
+
     testImplementation test.junit
 }
