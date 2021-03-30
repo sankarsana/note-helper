@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module
-interface MediatorsBindsModule {
+interface FacadeModule {
 
     @Binds
     fun bindsNotesMediator(notesMediator: NotesMediatorImpl): NotesMediator

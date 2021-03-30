@@ -1,27 +1,30 @@
 package com.bhaktaprogram.notehelper
 
+import android.app.Application
 import android.content.Context
-import com.bhaktaprogram.core.CoreProvidersFactory
-import com.bhaktaprogram.coreapi.ProvidersFacade
-import com.bhaktaprogram.coreapi.repository.RepositoryProvider
+import com.bhaktaprogram.coreapi.AppContextProvider
+import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(
-    modules = [MediatorsBindsModule::class],
-    dependencies = [RepositoryProvider::class]
-)
-interface AppComponent : ProvidersFacade {
+@Component
+interface AppComponent : AppContextProvider {
+
+    @Component.Builder
+    interface Builder {
+
+        @BindsInstance
+        fun applicationContext(context: Context): Builder
+
+        fun build(): AppComponent
+    }
 
     companion object {
 
-        fun init(context: Context): AppComponent {
-            val createRepositoryProvider = CoreProvidersFactory.createRepositoryProvider(context)
-            return DaggerAppComponent
-                .builder()
-                .repositoryProvider(createRepositoryProvider)
+        fun create(application: Application): AppContextProvider =
+            DaggerAppComponent.builder()
+                .applicationContext(application.applicationContext)
                 .build()
-        }
     }
 }

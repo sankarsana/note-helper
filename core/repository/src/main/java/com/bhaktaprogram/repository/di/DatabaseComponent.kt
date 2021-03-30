@@ -1,28 +1,22 @@
 package com.bhaktaprogram.repository.di
 
-import android.content.Context
+import com.bhaktaprogram.coreapi.AppContextProvider
 import com.bhaktaprogram.repository.database.AppDatabaseContract
-import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [DatabaseModule::class])
+@Component(
+    modules = [DatabaseModule::class],
+    dependencies = [AppContextProvider::class]
+)
 interface DatabaseComponent : AppDatabaseContract {
 
-    @Component.Builder
-    interface Builder {
-
-        @BindsInstance
-        fun setContext(context: Context): Builder
-
-        fun build(): DatabaseComponent
-    }
-
     companion object {
-        fun create(context: Context) = DaggerDatabaseComponent
-            .builder()
-            .setContext(context)
-            .build()
+
+        fun create(appContextProvider: AppContextProvider): DatabaseComponent =
+            DaggerDatabaseComponent.builder()
+                .appContextProvider(appContextProvider)
+                .build()
     }
 }

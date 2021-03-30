@@ -1,16 +1,17 @@
 package com.bhaktaprogram.core
 
-import android.content.Context
+import com.bhaktaprogram.coreapi.AppContextProvider
 import com.bhaktaprogram.coreapi.repository.RepositoryProvider
 import com.bhaktaprogram.coreimpl.di.DaggerCoreComponent
 import com.bhaktaprogram.repository.di.DatabaseComponent
 
 object CoreProvidersFactory {
 
-    fun createRepositoryProvider(context: Context): RepositoryProvider {
+    fun createRepositoryProvider(appContextProvider: AppContextProvider): RepositoryProvider {
+        val databaseComponent = DatabaseComponent.create(appContextProvider)
         return DaggerCoreComponent
             .builder()
-            .appDatabaseContract(DatabaseComponent.create(context))
+            .appDatabaseContract(databaseComponent)
             .build()
     }
 }

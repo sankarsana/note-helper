@@ -16,7 +16,7 @@ object DatabaseModule {
 
     @Provides
     @Reusable
-    fun provide(contract: AppDatabaseContract) = contract.notesDao()
+    fun provideNotesDao(contract: AppDatabaseContract) = contract.notesDao()
 
     @Provides
     @Singleton
