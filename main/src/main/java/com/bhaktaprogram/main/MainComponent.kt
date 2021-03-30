@@ -14,8 +14,7 @@ interface MainComponent {
     companion object {
 
         fun create(providersFacade: ProvidersFacade): MainComponent =
-            DaggerMainComponent
-                .builder()
+            DaggerMainComponent.builder()
                 .mediatorsProvider(providersFacade)
                 .build()
     }

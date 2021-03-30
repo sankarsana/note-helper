@@ -9,8 +9,7 @@ object CoreProvidersFactory {
 
     fun createRepositoryProvider(appContextProvider: AppContextProvider): RepositoryProvider {
         val databaseComponent = DatabaseComponent.create(appContextProvider)
-        return DaggerCoreComponent
-            .builder()
+        return DaggerCoreComponent.builder()
             .appDatabaseContract(databaseComponent)
             .build()
     }
