@@ -1,7 +1,7 @@
 package com.bhaktaprogram.coreimpl.di
 
 import com.bhaktaprogram.coreapi.repository.RepositoryProvider
-import com.bhaktaprogram.repository.database.AppDatabaseContract
+import com.bhaktaprogram.database.AppDatabaseContract
 import dagger.Component
 
 @Component(

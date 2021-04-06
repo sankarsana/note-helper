@@ -1,7 +1,7 @@
-package com.bhaktaprogram.repository.di
+package com.bhaktaprogram.database.di
 
 import android.content.Context
-import com.bhaktaprogram.repository.database.AppDatabaseContract
+import com.bhaktaprogram.database.AppDatabaseContract
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

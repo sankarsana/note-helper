@@ -3,7 +3,7 @@ package com.bhaktaprogram.core
 import com.bhaktaprogram.coreapi.AppContextProvider
 import com.bhaktaprogram.coreapi.repository.RepositoryProvider
 import com.bhaktaprogram.coreimpl.di.DaggerCoreComponent
-import com.bhaktaprogram.repository.di.DatabaseComponent
+import com.bhaktaprogram.database.di.DatabaseComponent
 
 object CoreProvidersFactory {
 

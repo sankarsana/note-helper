@@ -1,4 +1,4 @@
-package com.bhaktaprogram.repository.database
+package com.bhaktaprogram.database
 
 interface AppDatabaseContract {
 

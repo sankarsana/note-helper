@@ -1,9 +1,9 @@
-package com.bhaktaprogram.repository.di
+package com.bhaktaprogram.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.bhaktaprogram.repository.database.AppDatabase
-import com.bhaktaprogram.repository.database.AppDatabaseContract
+import com.bhaktaprogram.database.AppDatabase
+import com.bhaktaprogram.database.AppDatabaseContract
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
