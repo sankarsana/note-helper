@@ -8,7 +8,8 @@ import com.bhaktaprogram.repository.di.DatabaseComponent
 object CoreProvidersFactory {
 
     fun createRepositoryProvider(appContextProvider: AppContextProvider): RepositoryProvider {
-        val databaseContract = DatabaseComponent.create(appContextProvider.provideContext())
+        val databaseContract = DatabaseComponent
+            .create(appContextProvider.getApplicationContext())
         return DaggerCoreComponent.builder()
             .appDatabaseContract(databaseContract)
             .build()

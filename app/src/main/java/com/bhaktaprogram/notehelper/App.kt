@@ -13,6 +13,8 @@ class App : Application(), AppFacade {
         getProvidersFacade()
     }
 
-    override fun getProvidersFacade(): ProvidersFacade = providersFacade
-        ?: FacadeComponent.init(this).also { providersFacade = it }
+    override fun getProvidersFacade(): ProvidersFacade =
+        providersFacade
+            ?: FacadeComponent.init(this)
+                .also { providersFacade = it }
 }
