@@ -11,20 +11,17 @@ import javax.inject.Singleton
 @Component
 interface AppComponent : AppContextProvider {
 
-    @Component.Builder
-    interface Builder {
+    @Component.Factory
+    interface Factory {
 
-        @BindsInstance
-        fun applicationContext(context: Context): Builder
-
-        fun build(): AppComponent
+        fun create(@BindsInstance context: Context): AppComponent
     }
 
     companion object {
 
         fun create(application: Application): AppContextProvider =
-            DaggerAppComponent.builder()
-                .applicationContext(application.applicationContext)
-                .build()
+            DaggerAppComponent
+                .factory()
+                .create(application.applicationContext)
     }
 }
