@@ -53,6 +53,8 @@ dependencies {
     implementation lifecycle.common_java8
 
     implementation dagger
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     kapt dagger_compiler
 
     implementation view_binding_delegate

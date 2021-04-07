@@ -43,6 +43,7 @@ dependencies {
     implementation project(':main')
     implementation project(':core:core')
     implementation project(':features:notes')
+    implementation project(':features:edit-note')
 
     implementation kotlin
     implementation coroutines

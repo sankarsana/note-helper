@@ -13,7 +13,7 @@ import com.bhaktaprogram.notes.di.NotesComponent
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
-class NotesFragment : Fragment(R.layout.notes_fragment) {
+class NotesFragment : Fragment(R.layout.notes_fragment), NotesRouter {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -25,7 +25,7 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         NotesComponent
-            .create(requireActivity().getProvidersFacade())
+            .create(this, requireActivity().getProvidersFacade())
             .inject(this)
 
         binding.list.adapter = adapter
@@ -40,5 +40,10 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
 
     private fun updateState(items: List<NoteInfoUiDto>) {
         adapter.update(items)
+    }
+
+    override fun openEditScreen(noteId: Int) {
+        val mediator = requireActivity().getProvidersFacade().provideNotesMediator()
+        mediator.startNotes(R.id.id, childFragmentManager)
     }
 }

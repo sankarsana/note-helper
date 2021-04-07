@@ -1,4 +1,4 @@
-package com.bhaktaprogram.coreapi
+package com.bhaktaprogram.coreapi.navigation
 
 interface MediatorsProvider {
 

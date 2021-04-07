@@ -3,7 +3,7 @@ package com.bhaktaprogram.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bhaktaprogram.coreapi.AppFacade
-import com.bhaktaprogram.coreapi.NotesMediator
+import com.bhaktaprogram.coreapi.navigation.NotesMediator
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         injectDependencies()
 
         if (savedInstanceState == null) {
-            notesMediator.startNotesScreen(R.id.fragments_container, supportFragmentManager)
+            notesMediator.startNotes(R.id.fragments_container, supportFragmentManager)
         }
     }
 

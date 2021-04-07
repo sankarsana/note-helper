@@ -1,7 +1,7 @@
 package com.bhaktaprogram.main
 
-import com.bhaktaprogram.coreapi.MediatorsProvider
 import com.bhaktaprogram.coreapi.ProvidersFacade
+import com.bhaktaprogram.coreapi.navigation.MediatorsProvider
 import dagger.Component
 
 @Component(

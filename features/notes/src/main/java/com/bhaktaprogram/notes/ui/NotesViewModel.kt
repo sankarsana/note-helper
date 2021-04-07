@@ -10,7 +10,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NotesViewModel @Inject constructor(
-    private val interactor: NotesInteractor
+    private val interactor: NotesInteractor,
+//    private val editNoteMediator: NotesMediator,
+    private val router: NotesRouter,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<List<NoteInfoUiDto>>(emptyList())
