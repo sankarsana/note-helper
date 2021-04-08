@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bhaktaprogram.coreapi.extensions.get
 import com.bhaktaprogram.coreapi.extensions.getProvidersFacade
 import com.bhaktaprogram.notes.R
 import com.bhaktaprogram.notes.databinding.NotesFragmentBinding
@@ -17,9 +18,9 @@ class NotesFragment : Fragment(R.layout.notes_fragment), NotesRouter {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: NotesViewModel
     private val binding by viewBinding(NotesFragmentBinding::bind)
-    private val adapter = NotesAdapter()
+    private lateinit var viewModel: NotesViewModel
+    private lateinit var adapter: NotesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,10 +29,10 @@ class NotesFragment : Fragment(R.layout.notes_fragment), NotesRouter {
             .create(this, requireActivity().getProvidersFacade())
             .inject(this)
 
-        binding.list.adapter = adapter
+        viewModel = viewModelFactory.get(this, NotesViewModel::class.java)
 
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(NotesViewModel::class.java)
+        adapter = NotesAdapter(viewModel::onNoteClicked)
+        binding.list.adapter = adapter
 
         lifecycleScope.launchWhenStarted {
             viewModel.state.collect(::updateState)
@@ -43,7 +44,6 @@ class NotesFragment : Fragment(R.layout.notes_fragment), NotesRouter {
     }
 
     override fun openEditScreen(noteId: Int) {
-        val mediator = requireActivity().getProvidersFacade().provideNotesMediator()
-        mediator.startNotes(R.id.id, childFragmentManager)
+        // TODO
     }
 }

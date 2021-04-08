@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 class NotesViewModel @Inject constructor(
     private val interactor: NotesInteractor,
-//    private val editNoteMediator: NotesMediator,
     private val router: NotesRouter,
 ) : ViewModel() {
 
@@ -29,4 +28,8 @@ class NotesViewModel @Inject constructor(
         id = id.toString(),
         title = title
     )
+
+    fun onNoteClicked(note: NoteInfoUiDto) {
+        router.openEditScreen(note.id.toInt())
+    }
 }
