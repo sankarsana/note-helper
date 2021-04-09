@@ -40,5 +40,7 @@ dependencies {
     implementation core_ktx
     implementation appcompat
 
+    api cicerone
+
     testImplementation test.junit
 }

@@ -1,11 +1,14 @@
 package com.bhaktaprogram.main
 
-import com.bhaktaprogram.coreapi.ProvidersFacade
+import android.app.Application
+import com.bhaktaprogram.coreapi.AppFacade
 import com.bhaktaprogram.coreapi.navigation.MediatorsProvider
+import com.bhaktaprogram.coreapi.navigation.NavigationProvider
+import com.bhaktaprogram.coreapi.navigation.RoutersProvider
 import dagger.Component
 
 @Component(
-    dependencies = [MediatorsProvider::class]
+    dependencies = [MediatorsProvider::class, RoutersProvider::class, NavigationProvider::class],
 )
 interface MainComponent {
 
@@ -13,9 +16,14 @@ interface MainComponent {
 
     companion object {
 
-        fun create(providersFacade: ProvidersFacade): MainComponent =
-            DaggerMainComponent.builder()
+        fun create(application: Application): MainComponent {
+            val providersFacade = (application as AppFacade).getProvidersFacade()
+            return DaggerMainComponent
+                .builder()
                 .mediatorsProvider(providersFacade)
+                .routersProvider(providersFacade)
+                .navigationProvider(providersFacade)
                 .build()
+        }
     }
 }

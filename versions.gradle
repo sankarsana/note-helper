@@ -61,3 +61,5 @@ ext.test = [
 ext.view_binding_delegate = "com.github.kirich1409:viewbindingpropertydelegate:1.4.4"
 
 ext.timber = "com.jakewharton.timber:timber:4.7.1"
+
+ext.cicerone = "com.github.terrakok:cicerone:6.6"

@@ -2,28 +2,38 @@ package com.bhaktaprogram.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bhaktaprogram.coreapi.AppFacade
-import com.bhaktaprogram.coreapi.navigation.NotesMediator
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.androidx.AppNavigator
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var notesMediator: NotesMediator
+    lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var viewModel: MainViewModel
+
+    private val navigator = AppNavigator(this, R.id.fragments_container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        injectDependencies()
+        MainComponent.create(application).inject(this)
 
         if (savedInstanceState == null) {
-            notesMediator.startNotes(R.id.fragments_container, supportFragmentManager)
+            viewModel.onOpened()
         }
     }
 
-    private fun injectDependencies() {
-        val providersFacade = (application as AppFacade).getProvidersFacade()
-        MainComponent.create(providersFacade).inject(this)
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
     }
 }
