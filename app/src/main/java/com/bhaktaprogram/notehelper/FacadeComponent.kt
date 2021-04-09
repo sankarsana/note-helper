@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     dependencies = [AppContextProvider::class, RepositoryProvider::class],
-    modules = [FacadeModule::class, NavigationModule::class, RoutersModule::class],
+    modules = [NavigationModule::class, RoutersModule::class],
 )
 interface FacadeComponent : ProvidersFacade {
 
