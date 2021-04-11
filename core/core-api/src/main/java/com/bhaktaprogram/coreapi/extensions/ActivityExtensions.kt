@@ -1,6 +1,6 @@
 package com.bhaktaprogram.coreapi.extensions
 
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import com.bhaktaprogram.coreapi.AppFacade
 
-fun FragmentActivity.getProvidersFacade() = (application as AppFacade).getProvidersFacade()
+fun Fragment.getAppFacade() = requireActivity().application as AppFacade

@@ -3,6 +3,7 @@ package com.bhaktaprogram.notes.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bhaktaprogram.coreapi.dto.NoteInfo
+import com.bhaktaprogram.coreapi.navigation.EditNoteRouter
 import com.bhaktaprogram.notes.domain.NotesInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +12,7 @@ import javax.inject.Inject
 
 class NotesViewModel @Inject constructor(
     private val interactor: NotesInteractor,
-    private val router: NotesRouter,
+    private val router: EditNoteRouter,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<List<NoteInfoUiDto>>(emptyList())
@@ -30,6 +31,6 @@ class NotesViewModel @Inject constructor(
     )
 
     fun onNoteClicked(note: NoteInfoUiDto) {
-        router.openEditScreen(note.id.toInt())
+        router.show(note.id.toInt())
     }
 }

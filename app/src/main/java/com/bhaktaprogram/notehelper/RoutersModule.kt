@@ -1,8 +1,8 @@
 package com.bhaktaprogram.notehelper
 
-import com.bhaktaprogram.coreapi.navigation.MainRouter
+import com.bhaktaprogram.coreapi.navigation.EditNoteRouter
 import com.bhaktaprogram.coreapi.navigation.NotesRouter
-import com.bhaktaprogram.main.MainRouterImpl
+import com.bhaktaprogram.edit_note.ui.EditNoteRouterImpl
 import com.bhaktaprogram.notes.ui.NotesRouterImpl
 import dagger.Binds
 import dagger.Module
@@ -11,8 +11,8 @@ import dagger.Module
 interface RoutersModule {
 
     @Binds
-    fun bindMainRouter(router: MainRouterImpl): MainRouter
+    fun bindEditNote(router: EditNoteRouterImpl): EditNoteRouter
 
     @Binds
-    fun bindNotesRouter(router: NotesRouterImpl): NotesRouter
+    fun bindNotes(router: NotesRouterImpl): NotesRouter
 }

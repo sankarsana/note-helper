@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bhaktaprogram.coreapi.extensions.get
-import com.bhaktaprogram.coreapi.extensions.getProvidersFacade
+import com.bhaktaprogram.coreapi.extensions.getAppFacade
 import com.bhaktaprogram.notes.R
 import com.bhaktaprogram.notes.databinding.NotesFragmentBinding
 import com.bhaktaprogram.notes.di.NotesComponent
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
-class NotesFragment : Fragment(R.layout.notes_fragment), NotesRouter {
+class NotesFragment : Fragment(R.layout.notes_fragment) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -26,7 +26,7 @@ class NotesFragment : Fragment(R.layout.notes_fragment), NotesRouter {
         super.onViewCreated(view, savedInstanceState)
 
         NotesComponent
-            .create(this, requireActivity().getProvidersFacade())
+            .create(getAppFacade())
             .inject(this)
 
         viewModel = viewModelFactory.get(this, NotesViewModel::class.java)
@@ -41,9 +41,5 @@ class NotesFragment : Fragment(R.layout.notes_fragment), NotesRouter {
 
     private fun updateState(items: List<NoteInfoUiDto>) {
         adapter.update(items)
-    }
-
-    override fun openEditScreen(noteId: Int) {
-        // TODO
     }
 }

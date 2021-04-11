@@ -2,6 +2,7 @@ package com.bhaktaprogram.edit_note.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -22,7 +23,12 @@ class EditNotesFragment : Fragment(R.layout.edit_notes_fragment) {
     }
 
     companion object {
-        fun newInstance() = EditNotesFragment()
+
+        private const val NOTE_ID = "note_id"
+
+        fun newInstance(noteId: Int) = EditNotesFragment().apply {
+            arguments = bundleOf(NOTE_ID to noteId)
+        }
     }
 
 }
