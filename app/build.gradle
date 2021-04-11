@@ -51,15 +51,15 @@ dependencies {
     implementation appcompat
     implementation material
 
-    implementation retrofit.retrofit
-    implementation retrofit.converter_gson
-    implementation okhttp3.logging_interceptor
+    implementation retrofit
+    implementation converter_gson
+    implementation logging_interceptor
 
     implementation dagger
     kapt dagger_compiler
 
-    testImplementation test.junit
+    testImplementation junit
 
-    androidTestImplementation test.androidx_ext
-    androidTestImplementation test.espresso
+    androidTestImplementation junit_ext
+    androidTestImplementation espresso
 }

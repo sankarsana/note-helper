@@ -40,14 +40,14 @@ dependencies {
     implementation kotlin
     implementation core_ktx
 
-    implementation room.runtime
-    implementation room.ktx
-    kapt room.compiler
+    implementation room_runtime
+    implementation room_ktx
+    kapt room_compiler
 
     implementation dagger
     kapt dagger_compiler
 
     implementation timber
 
-    testImplementation test.junit
+    testImplementation junit
 }

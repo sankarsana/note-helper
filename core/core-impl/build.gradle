@@ -46,5 +46,5 @@ dependencies {
     implementation dagger
     kapt dagger_compiler
 
-    testImplementation test.junit
+    testImplementation junit
 }

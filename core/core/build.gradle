@@ -45,5 +45,5 @@ dependencies {
     implementation kotlin
     implementation core_ktx
 
-    testImplementation test.junit
+    testImplementation junit
 }
