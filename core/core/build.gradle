@@ -45,6 +45,7 @@ dependencies {
     api core_ktx
     api appcompat
     api material
+    api fragment_ktx
 
     api lifecycle_viewmodel_ktx
     api lifecycle_runtime_ktx
