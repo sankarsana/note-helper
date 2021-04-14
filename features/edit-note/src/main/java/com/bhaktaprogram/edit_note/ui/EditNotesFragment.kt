@@ -38,8 +38,8 @@ class EditNotesFragment : Fragment(R.layout.edit_notes_fragment) {
     }
 
     private fun updateState(note: EditNoteUi) = with(binding) {
-        title.text = note.title
-        text.text = note.text
+        title.setText(note.title)
+        text.setText(note.text)
     }
 
     companion object {

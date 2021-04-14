@@ -7,18 +7,25 @@
     android:padding="16dp"
     tools:context=".ui.EditNotesFragment">
 
-    <TextView
+    <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:hint="@string/title"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:textSize="20sp" />
 
-    <TextView
+    <EditText
         android:id="@+id/text"
         android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
         android:layout_height="match_parent"
-        android:hint="@string/text" />
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:gravity="top"
+        android:hint="@string/text"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine" />
 
 </LinearLayout>
