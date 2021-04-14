@@ -49,6 +49,7 @@ ext.room_compiler = "androidx.room:room-compiler:$versions.room"
 ext.junit = 'junit:junit:4.13.2'
 ext.junit_ext = 'androidx.test.ext:junit:1.1.2'
 ext.espresso = 'androidx.test.espresso:espresso-core:3.3.0'
+ext.mokk = "io.mockk:mockk:1.11.0"
 
 // ViewBindingPropertyDelegate https://github.com/kirich1409/ViewBindingPropertyDelegate
 ext.view_binding_delegate = "com.github.kirich1409:viewbindingpropertydelegate:1.4.4"
@@ -56,3 +57,51 @@ ext.view_binding_delegate = "com.github.kirich1409:viewbindingpropertydelegate:1
 ext.timber = "com.jakewharton.timber:timber:4.7.1"
 
 ext.cicerone = "com.github.terrakok:cicerone:6.6"
+
+ext {
+    applyCommonFeatureDependencies = { module ->
+        module.dependencies {
+            api kotlin
+            api coroutines
+            api core_ktx
+            api appcompat
+            api material
+            api fragment_ktx
+
+            api lifecycle_viewmodel_ktx
+            api lifecycle_runtime_ktx
+            api lifecycle_common_java8
+
+            api view_binding_delegate
+            api timber
+            api cicerone
+        }
+    }
+}
+
+ext {
+    applyTests = { module ->
+        module.dependencies {
+            testImplementation junit
+            testImplementation mokk
+        }
+    }
+}
+
+ext {
+    applyDagger = { module ->
+        module.dependencies {
+            implementation dagger
+            kapt dagger_compiler
+        }
+    }
+}
+
+ext {
+    applyAndroidTests = { module ->
+        module.dependencies {
+            androidTestImplementation junit_ext
+            androidTestImplementation espresso
+        }
+    }
+}

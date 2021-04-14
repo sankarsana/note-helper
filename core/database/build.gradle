@@ -44,10 +44,9 @@ dependencies {
     implementation room_ktx
     kapt room_compiler
 
-    implementation dagger
-    kapt dagger_compiler
+    applyDagger(this)
 
     implementation timber
 
-    testImplementation junit
+    applyTests(this)
 }

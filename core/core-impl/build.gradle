@@ -43,8 +43,7 @@ dependencies {
     implementation kotlin
     implementation core_ktx
 
-    implementation dagger
-    kapt dagger_compiler
+    applyDagger(this)
 
-    testImplementation junit
+    applyTests(this)
 }

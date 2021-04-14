@@ -42,11 +42,8 @@ dependencies {
 
     implementation project(':core:core')
 
-    implementation dagger
-    kapt dagger_compiler
+    applyCommonFeatureDependencies(this)
+    applyDagger(this)
 
-    testImplementation junit
-
-    androidTestImplementation junit_ext
-    androidTestImplementation espresso
+    applyTests(this)
 }

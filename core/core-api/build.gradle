@@ -37,10 +37,9 @@ android {
 dependencies {
 
     implementation kotlin
-    implementation core_ktx
     implementation appcompat
 
-    api cicerone
+    implementation cicerone
 
-    testImplementation junit
+    applyTests(this)
 }
