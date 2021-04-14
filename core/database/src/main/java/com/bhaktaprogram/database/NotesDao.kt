@@ -12,6 +12,9 @@ interface NotesDao {
     @Query("select * from notes")
     suspend fun getAll(): List<NoteEntity>
 
+    @Query("select * from notes where id = :noteId")
+    suspend fun getById(noteId: Int): NoteEntity
+
     @Insert
     suspend fun insert(note: NoteEntity)
 

@@ -6,9 +6,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bhaktaprogram.coreapi.extensions.getAppFacade
 import com.bhaktaprogram.edit_note.R
 import com.bhaktaprogram.edit_note.databinding.EditNotesFragmentBinding
+import com.bhaktaprogram.edit_note.di.EditNoteComponent
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class EditNotesFragment : Fragment(R.layout.edit_notes_fragment) {
@@ -21,6 +25,21 @@ class EditNotesFragment : Fragment(R.layout.edit_notes_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        EditNoteComponent.create(getAppFacade()).inject(this)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.state.collect(::updateState)
+        }
+
+        if (savedInstanceState == null) {
+            val noteId = arguments?.getInt(NOTE_ID) ?: -1
+            viewModel.onOpened(noteId)
+        }
+    }
+
+    private fun updateState(note: EditNoteUi) = with(binding) {
+        title.text = note.title
+        text.text = note.text
     }
 
     companion object {
