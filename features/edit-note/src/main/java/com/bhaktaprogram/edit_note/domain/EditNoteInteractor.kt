@@ -11,4 +11,8 @@ class EditNoteInteractor @Inject constructor(
     suspend fun getNote(noteId: Int): Note {
         return noteRepository.getById(noteId)
     }
+
+    suspend fun save(note: Note) {
+        noteRepository.update(note)
+    }
 }

@@ -8,3 +8,9 @@ fun NoteEntity.toDomain() = Note(
     title = title,
     text = text,
 )
+
+fun Note.toDb() = NoteEntity(
+    id = if (id == -1) 0 else id,
+    title = title,
+    text = text
+)

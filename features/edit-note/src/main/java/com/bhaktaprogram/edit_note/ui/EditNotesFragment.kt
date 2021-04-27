@@ -3,6 +3,7 @@ package com.bhaktaprogram.edit_note.ui
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -31,15 +32,28 @@ class EditNotesFragment : Fragment(R.layout.edit_notes_fragment) {
             viewModel.state.collect(::updateState)
         }
 
-        if (savedInstanceState == null) {
-            val noteId = arguments?.getInt(NOTE_ID) ?: -1
-            viewModel.onOpened(noteId)
+        lifecycle.addObserver(viewModel)
+
+        val noteId = arguments?.getInt(NOTE_ID) ?: -1
+        viewModel.onOpened(noteId)
+
+        with(binding) {
+            title.addTextChangedListener { title ->
+                viewModel.onTitleChanged(title?.toString() ?: return@addTextChangedListener)
+            }
+            text.addTextChangedListener { text ->
+                viewModel.onTextChanged(text?.toString() ?: return@addTextChangedListener)
+            }
         }
     }
 
     private fun updateState(note: EditNoteUi) = with(binding) {
-        title.setText(note.title)
-        text.setText(note.text)
+        if (title.text.toString() != note.title) {
+            title.setText(note.title)
+        }
+        if (text.text.toString() != note.text) {
+            text.setText(note.text)
+        }
     }
 
     companion object {

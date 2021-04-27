@@ -8,4 +8,6 @@ interface NoteRepository {
     suspend fun getNotesInfo(): List<NoteInfo>
 
     suspend fun getById(noteId: Int): Note
+
+    suspend fun update(note: Note)
 }

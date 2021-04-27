@@ -17,4 +17,8 @@ class NoteRepositoryImpl @Inject constructor(
     override suspend fun getById(noteId: Int): Note {
         return notesDao.getById(noteId).toDomain()
     }
+
+    override suspend fun update(note: Note) {
+        notesDao.update(note.toDb())
+    }
 }
