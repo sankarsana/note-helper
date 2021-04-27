@@ -18,7 +18,7 @@ class NotesViewModel @Inject constructor(
     private val _state = MutableStateFlow<List<NoteInfoUiDto>>(emptyList())
     val state: StateFlow<List<NoteInfoUiDto>> get() = _state
 
-    init {
+    fun onOpened() {
         viewModelScope.launch {
             _state.value = interactor.getAll()
                 .map { it.toUi() }
