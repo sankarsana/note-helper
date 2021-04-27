@@ -40,7 +40,7 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
         }
     }
 
-    private fun updateState(items: List<NoteInfoUiDto>) {
+    private fun updateState(items: List<NoteInfoUi>) {
         adapter.update(items)
     }
 }

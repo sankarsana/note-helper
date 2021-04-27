@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bhaktaprogram.notes.databinding.NoteItemBinding
 
-class NotesAdapter(private val clickListener: (NoteInfoUiDto) -> Unit) :
+class NotesAdapter(private val clickListener: (NoteInfoUi) -> Unit) :
     RecyclerView.Adapter<NotesAdapter.Holder>() {
 
-    private var items = emptyList<NoteInfoUiDto>()
+    private var items = emptyList<NoteInfoUi>()
 
-    fun update(items: List<NoteInfoUiDto>) {
+    fun update(items: List<NoteInfoUi>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -29,12 +29,12 @@ class NotesAdapter(private val clickListener: (NoteInfoUiDto) -> Unit) :
 
     class Holder(
         private val binding: NoteItemBinding,
-        private val clickListener: (NoteInfoUiDto) -> Unit
+        private val clickListener: (NoteInfoUi) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: NoteInfoUiDto) {
-            binding.id.text = item.id
+        fun bind(item: NoteInfoUi) {
             binding.title.text = item.title
+            binding.text.text = item.text
             itemView.setOnClickListener { clickListener(item) }
         }
     }

@@ -15,8 +15,8 @@ class NotesViewModel @Inject constructor(
     private val router: EditNoteRouter,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<List<NoteInfoUiDto>>(emptyList())
-    val state: StateFlow<List<NoteInfoUiDto>> get() = _state
+    private val _state = MutableStateFlow<List<NoteInfoUi>>(emptyList())
+    val state: StateFlow<List<NoteInfoUi>> get() = _state
 
     fun onOpened() {
         viewModelScope.launch {
@@ -25,12 +25,13 @@ class NotesViewModel @Inject constructor(
         }
     }
 
-    private fun NoteInfo.toUi() = NoteInfoUiDto(
+    private fun NoteInfo.toUi() = NoteInfoUi(
         id = id.toString(),
-        title = title
+        title = title,
+        text = text
     )
 
-    fun onNoteClicked(note: NoteInfoUiDto) {
+    fun onNoteClicked(note: NoteInfoUi) {
         router.show(note.id.toInt())
     }
 

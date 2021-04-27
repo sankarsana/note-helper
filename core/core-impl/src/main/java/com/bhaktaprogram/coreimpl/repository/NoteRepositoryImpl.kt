@@ -12,7 +12,7 @@ class NoteRepositoryImpl @Inject constructor(
 ) : NoteRepository {
 
     override suspend fun getNotesInfo(): List<NoteInfo> {
-        return notesDao.getAll().map { NoteInfo(it.id, it.title) }
+        return notesDao.getAll().map { NoteInfo(it.id, it.title, it.text) }
     }
 
     override suspend fun getById(noteId: Int): Note {
