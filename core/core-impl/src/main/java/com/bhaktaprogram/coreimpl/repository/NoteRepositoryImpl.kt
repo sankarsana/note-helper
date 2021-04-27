@@ -3,6 +3,7 @@ package com.bhaktaprogram.coreimpl.repository
 import com.bhaktaprogram.coreapi.dto.Note
 import com.bhaktaprogram.coreapi.dto.NoteInfo
 import com.bhaktaprogram.coreapi.repository.NoteRepository
+import com.bhaktaprogram.database.NO_ID
 import com.bhaktaprogram.database.NotesDao
 import javax.inject.Inject
 
@@ -18,7 +19,12 @@ class NoteRepositoryImpl @Inject constructor(
         return notesDao.getById(noteId).toDomain()
     }
 
-    override suspend fun update(note: Note) {
-        notesDao.insert(note.toDb())
+    override suspend fun save(note: Note) {
+        val noteEntity = note.toDb()
+        if (noteEntity.id == NO_ID) {
+            notesDao.insert(noteEntity)
+        } else {
+            notesDao.update(noteEntity)
+        }
     }
 }

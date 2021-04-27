@@ -9,5 +9,5 @@ interface NoteRepository {
 
     suspend fun getById(noteId: Int): Note
 
-    suspend fun update(note: Note)
+    suspend fun save(note: Note)
 }

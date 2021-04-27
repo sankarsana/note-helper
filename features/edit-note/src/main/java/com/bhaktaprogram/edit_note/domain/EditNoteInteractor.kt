@@ -13,6 +13,6 @@ class EditNoteInteractor @Inject constructor(
     }
 
     suspend fun save(note: Note) {
-        noteRepository.update(note)
+        noteRepository.save(note)
     }
 }

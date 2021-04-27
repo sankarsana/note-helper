@@ -43,6 +43,8 @@ dependencies {
     implementation kotlin
     implementation core_ktx
 
+    implementation timber
+
     applyDagger(this)
 
     applyTests(this)

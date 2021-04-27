@@ -1,4 +1,4 @@
-package com.bhaktaprogram.database.database
+package com.bhaktaprogram.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

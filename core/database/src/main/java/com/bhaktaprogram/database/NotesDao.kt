@@ -1,7 +1,6 @@
 package com.bhaktaprogram.database
 
 import androidx.room.*
-import com.bhaktaprogram.database.database.NoteEntity
 
 @Dao
 interface NotesDao {
@@ -14,6 +13,9 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(note: NoteEntity)
+
+    @Update
+    suspend fun update(noteEntity: NoteEntity)
 
     @Delete
     suspend fun delete(note: NoteEntity)
