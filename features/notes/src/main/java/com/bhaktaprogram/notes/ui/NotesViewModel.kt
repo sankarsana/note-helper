@@ -33,4 +33,8 @@ class NotesViewModel @Inject constructor(
     fun onNoteClicked(note: NoteInfoUiDto) {
         router.show(note.id.toInt())
     }
+
+    fun onAddClicked() {
+        router.show(-1)
+    }
 }

@@ -12,8 +12,8 @@ interface NotesDao {
     @Query("select * from notes where id = :noteId")
     suspend fun getById(noteId: Int): NoteEntity
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun update(note: NoteEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(note: NoteEntity)
 
     @Delete
     suspend fun delete(note: NoteEntity)

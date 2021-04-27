@@ -31,6 +31,7 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
 
         adapter = NotesAdapter(viewModel::onNoteClicked)
         binding.list.adapter = adapter
+        binding.add.setOnClickListener { viewModel.onAddClicked() }
 
         lifecycleScope.launchWhenStarted {
             viewModel.state.collect(::updateState)

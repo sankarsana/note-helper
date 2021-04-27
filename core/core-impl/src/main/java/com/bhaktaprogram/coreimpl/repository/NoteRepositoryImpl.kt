@@ -19,6 +19,6 @@ class NoteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(note: Note) {
-        notesDao.update(note.toDb())
+        notesDao.insert(note.toDb())
     }
 }
