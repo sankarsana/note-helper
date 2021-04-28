@@ -50,4 +50,6 @@ dependencies {
     implementation logging_interceptor
 
     applyDagger(this)
+
+    applyTests(this)
 }
