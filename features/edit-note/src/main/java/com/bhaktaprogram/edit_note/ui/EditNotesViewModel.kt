@@ -31,6 +31,7 @@ class EditNotesViewModel @Inject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause() {
+        // TODO should use scope passed to constructor to testing
         CoroutineScope(IO).launch {
             interactor.save(note)
         }
