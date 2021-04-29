@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = versions.java.toString()
     }
+    testOptions {
+        unitTests.includeAndroidResources true
+    }
 }
 
 dependencies {
@@ -49,4 +52,6 @@ dependencies {
     applyDagger(this)
 
     applyTests(this)
+
+    testImplementation robolectric
 }
