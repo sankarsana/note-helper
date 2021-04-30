@@ -52,6 +52,4 @@ dependencies {
     applyDagger(this)
 
     applyTests(this)
-
-    testImplementation robolectric
 }
