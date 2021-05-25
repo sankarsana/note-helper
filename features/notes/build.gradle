@@ -42,25 +42,8 @@ dependencies {
 
     implementation project(':core:core')
 
-    implementation kotlin
-    implementation coroutines
-    implementation core_ktx
-    implementation appcompat
-    implementation material
+    applyCommonFeatureDependencies(this)
+    applyDagger(this)
 
-    implementation lifecycle.viewmodel_ktx
-    implementation lifecycle.runtime_ktx
-    implementation lifecycle.common_java8
-
-    implementation recyclerview
-
-    implementation dagger
-    kapt dagger_compiler
-
-    implementation view_binding_delegate
-
-    testImplementation test.junit
-
-    androidTestImplementation test.androidx_ext
-    androidTestImplementation test.espresso
+    applyTests(this)
 }

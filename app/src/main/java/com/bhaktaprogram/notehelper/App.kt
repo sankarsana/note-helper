@@ -3,6 +3,7 @@ package com.bhaktaprogram.notehelper
 import android.app.Application
 import com.bhaktaprogram.coreapi.AppFacade
 import com.bhaktaprogram.coreapi.ProvidersFacade
+import timber.log.Timber
 
 class App : Application(), AppFacade {
 
@@ -10,6 +11,7 @@ class App : Application(), AppFacade {
 
     override fun onCreate() {
         super.onCreate()
+        initTimber()
         getProvidersFacade()
     }
 
@@ -17,4 +19,10 @@ class App : Application(), AppFacade {
         providersFacade
             ?: FacadeComponent.init(this)
                 .also { providersFacade = it }
+
+    private fun initTimber() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
 }

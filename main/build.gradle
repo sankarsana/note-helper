@@ -46,8 +46,7 @@ dependencies {
     implementation appcompat
     implementation material
 
-    implementation dagger
-    kapt dagger_compiler
+    applyDagger(this)
 
-    testImplementation test.junit
+    applyTests(this)
 }

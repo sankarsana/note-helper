@@ -10,15 +10,15 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [FacadeModule::class],
-    dependencies = [AppContextProvider::class, RepositoryProvider::class]
+    dependencies = [AppContextProvider::class, RepositoryProvider::class],
+    modules = [NavigationModule::class, RoutersModule::class],
 )
 interface FacadeComponent : ProvidersFacade {
 
     companion object {
 
         fun init(application: Application): FacadeComponent {
-            val appContextProvider = AppComponent.create(application)
+            val appContextProvider = AppContextComponent.create(application)
             val repositoryProvider = CoreProvidersFactory
                 .createRepositoryProvider(appContextProvider)
             return DaggerFacadeComponent.builder()

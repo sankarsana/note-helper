@@ -1,10 +1,6 @@
 package com.bhaktaprogram.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import com.bhaktaprogram.database.database.NoteEntity
+import androidx.room.*
 
 @Dao
 interface NotesDao {
@@ -12,8 +8,14 @@ interface NotesDao {
     @Query("select * from notes")
     suspend fun getAll(): List<NoteEntity>
 
-    @Insert
+    @Query("select * from notes where id = :noteId")
+    suspend fun getById(noteId: Int): NoteEntity
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(note: NoteEntity)
+
+    @Update
+    suspend fun update(noteEntity: NoteEntity)
 
     @Delete
     suspend fun delete(note: NoteEntity)

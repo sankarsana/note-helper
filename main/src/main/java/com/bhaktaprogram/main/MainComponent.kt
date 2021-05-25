@@ -1,11 +1,11 @@
 package com.bhaktaprogram.main
 
-import com.bhaktaprogram.coreapi.MediatorsProvider
+import com.bhaktaprogram.coreapi.AppFacade
 import com.bhaktaprogram.coreapi.ProvidersFacade
 import dagger.Component
 
 @Component(
-    dependencies = [MediatorsProvider::class]
+    dependencies = [ProvidersFacade::class],
 )
 interface MainComponent {
 
@@ -13,9 +13,11 @@ interface MainComponent {
 
     companion object {
 
-        fun create(providersFacade: ProvidersFacade): MainComponent =
-            DaggerMainComponent.builder()
-                .mediatorsProvider(providersFacade)
+        fun create(appFacade: AppFacade): MainComponent {
+            return DaggerMainComponent
+                .builder()
+                .providersFacade(appFacade.getProvidersFacade())
                 .build()
+        }
     }
 }

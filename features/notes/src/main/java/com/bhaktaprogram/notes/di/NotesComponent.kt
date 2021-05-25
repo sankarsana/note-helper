@@ -1,12 +1,13 @@
 package com.bhaktaprogram.notes.di
 
+import com.bhaktaprogram.coreapi.AppFacade
 import com.bhaktaprogram.coreapi.ProvidersFacade
 import com.bhaktaprogram.notes.ui.NotesFragment
 import dagger.Component
 
 @Component(
+    dependencies = [ProvidersFacade::class],
     modules = [NotesModule::class],
-    dependencies = [ProvidersFacade::class]
 )
 interface NotesComponent {
 
@@ -14,9 +15,9 @@ interface NotesComponent {
 
     companion object {
 
-        fun create(providersFacade: ProvidersFacade): NotesComponent =
+        fun create(appFacade: AppFacade): NotesComponent =
             DaggerNotesComponent.builder()
-                .providersFacade(providersFacade)
+                .providersFacade(appFacade.getProvidersFacade())
                 .build()
     }
 }

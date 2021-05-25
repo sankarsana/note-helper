@@ -39,11 +39,4 @@ dependencies {
     api project(':core:core-api')
     implementation project(':core:core-impl')
     implementation project(':core:database')
-
-    api timber
-
-    implementation kotlin
-    implementation core_ktx
-
-    testImplementation test.junit
 }
