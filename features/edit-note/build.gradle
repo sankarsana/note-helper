@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.bhaktaprogram.edit_note.CustomAppRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -47,4 +47,8 @@ dependencies {
     applyDagger(this)
 
     applyTests(this)
+
+    androidTestImplementation espresso
+    androidTestImplementation fragment_testing
+    androidTestImplementation mockk
 }
