@@ -1,6 +1,8 @@
 FROM ubuntu:20.04
 MAINTAINER sankarsana
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt update && \
     apt -y install \
         unzip \
@@ -15,10 +17,12 @@ RUN apt update && \
         sudo \
         telnet \
         openjdk-8-jdk && \
-    apt upgrade && \
     apt clean && \
     apt purge && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV LANG C.UTF-8
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # ----------------- Android SDK -----------------
 ENV ANDROID_HOME /opt/android-sdk
@@ -51,7 +55,7 @@ RUN echo "y" | sdkmanager --verbose \
     "cmake;$ANDROID_CMAKE_VERSION" \
     "build-tools;$ANDROID_BUILD_TOOLS_VERSION" \
     "platforms;android-$ANDROID_PLATFORM_VERSION" && \
-  sdkmanager --update --sdk_root="${ANDROID_HOME}"
+    sdkmanager --update --sdk_root="${ANDROID_HOME}"
 
 # ----------------- Permissions -----------------
 RUN chmod -R o+rwX ${ANDROID_HOME} && \

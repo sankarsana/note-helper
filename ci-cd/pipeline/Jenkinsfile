@@ -1,7 +1,10 @@
 #!groovy
 pipeline {
     agent {
-        dockerfile true
+        dockerfile {
+            dir 'ci-cd/pipeline/'
+            args '-it --memory=26g --cpus="3"'
+        }
 //        docker {
 //            image 'jangrewe/gitlab-ci-android'
 //            args '-it --memory=26g --cpus="3"'
