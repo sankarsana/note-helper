@@ -13,6 +13,27 @@ buildscript {
 }
 
 allprojects {
+
+    afterEvaluate {
+        if (it.hasProperty('android')) {
+            android {
+                compileSdkVersion versions.compile_sdk
+                buildToolsVersion versions.build_tools
+                defaultConfig {
+                    minSdkVersion versions.min_sdk
+                    targetSdkVersion versions.target_sdk
+                    versionCode 1
+                    versionName "1.0"
+                }
+                android {
+                    kotlinOptions {
+                        jvmTarget = versions.java.toString()
+                    }
+                }
+            }
+        }
+    }
+
     repositories {
         google()
         mavenCentral()
