@@ -16,3 +16,9 @@ dependencies {
     compileOnly "com.android.tools.lint:lint-checks:$lintVersion"
     testImplementation "com.android.tools.lint:lint-tests:$lintVersion"
 }
+
+jar {
+    manifest {
+        attributes 'Lint-Registry-v2': 'com.bhaktaprogram.lintrules.LintRegistry'
+    }
+}
