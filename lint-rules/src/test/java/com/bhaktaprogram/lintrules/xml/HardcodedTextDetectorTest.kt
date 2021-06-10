@@ -1,4 +1,4 @@
-package com.bhaktaprogram.lintrules
+package com.bhaktaprogram.lintrules.xml
 
 import com.android.tools.lint.checks.infrastructure.TestFiles
 import com.android.tools.lint.checks.infrastructure.TestLintTask
@@ -71,7 +71,7 @@ class HardcodedTextDetectorTest {
         TestLintTask.lint()
             .allowMissingSdk()
             .files(TestFiles.xml("res/layout/layout.xml", xml))
-            .issues(HardcodedTextDetector.ISSUE)
+            .issues(HardcodedTextIssue.ISSUE)
             .run()
             .expectErrorCount(expectedErrorCount)
     }

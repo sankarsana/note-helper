@@ -1,7 +1,10 @@
-package com.bhaktaprogram.lintrules
+package com.bhaktaprogram.lintrules.xml
 
 import com.android.SdkConstants.*
-import com.android.tools.lint.detector.api.*
+import com.android.tools.lint.detector.api.LayoutDetector
+import com.android.tools.lint.detector.api.LintFix
+import com.android.tools.lint.detector.api.Location
+import com.android.tools.lint.detector.api.XmlContext
 import org.w3c.dom.Attr
 
 /**
@@ -32,9 +35,9 @@ class HardcodedTextDetector : LayoutDetector() {
             return
         }
         context.report(
-            ISSUE,
+            HardcodedTextIssue.ISSUE,
             context.getLocation(attribute),
-            DESCRIPTION,
+            HardcodedTextIssue.DESCRIPTION,
             createLint(context.getValueLocation(attribute))
         )
     }
@@ -47,23 +50,5 @@ class HardcodedTextDetector : LayoutDetector() {
             .with("@string/value")
             .select("value")
             .build()
-    }
-
-    companion object {
-        private const val DESCRIPTION = "Hardcoded text"
-        private const val EXPLANATION = "You should use text from strings.xml to have " +
-                "the correct texts on all languages"
-
-        val ISSUE = Issue.create(
-            id = "HardcodedText",
-            briefDescription = DESCRIPTION,
-            explanation = EXPLANATION,
-            category = Category.USABILITY,
-            priority = 5,
-            severity = Severity.FATAL,
-            implementation = Implementation(
-                HardcodedTextDetector::class.java, Scope.RESOURCE_FILE_SCOPE
-            )
-        )
     }
 }
