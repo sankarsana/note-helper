@@ -71,7 +71,7 @@ class HardcodedTextDetectorTest {
         TestLintTask.lint()
             .allowMissingSdk()
             .files(TestFiles.xml("res/layout/layout.xml", xml))
-            .issues(HardcodedTextIssue.ISSUE)
+            .issues(HardcodedTextDetector.ISSUE)
             .run()
             .expectErrorCount(expectedErrorCount)
     }
