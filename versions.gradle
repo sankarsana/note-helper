@@ -52,6 +52,7 @@ ext.junit = 'junit:junit:4.13.2'
 ext.junit_ext = 'androidx.test.ext:junit:1.1.2'
 ext.espresso = 'androidx.test.espresso:espresso-core:3.3.0'
 ext.mokk = "io.mockk:mockk:1.11.0"
+ext.robolectric = "org.robolectric:robolectric:4.5.1"
 
 // ViewBindingPropertyDelegate https://github.com/kirich1409/ViewBindingPropertyDelegate
 ext.view_binding_delegate = "com.github.kirich1409:viewbindingpropertydelegate:1.4.4"

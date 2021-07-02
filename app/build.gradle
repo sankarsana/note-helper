@@ -36,6 +36,8 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    testOptions.unitTests.includeAndroidResources = true
 }
 
 dependencies {
@@ -50,4 +52,8 @@ dependencies {
     implementation logging_interceptor
 
     applyDagger(this)
+
+    applyTests(this)
+
+    testImplementation robolectric
 }
