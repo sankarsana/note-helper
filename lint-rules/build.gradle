@@ -1,0 +1,24 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+apply from: "$rootDir/versions.gradle"
+
+sourceCompatibility = versions.java
+targetCompatibility = versions.java
+
+dependencies {
+    compileOnly kotlin
+
+    def lintVersion = '27.2.1'
+    compileOnly "com.android.tools.lint:lint-api:$lintVersion"
+    compileOnly "com.android.tools.lint:lint-checks:$lintVersion"
+    testImplementation "com.android.tools.lint:lint-tests:$lintVersion"
+}
+
+jar {
+    manifest {
+        attributes 'Lint-Registry-v2': 'com.bhaktaprogram.lintrules.LintRegistry'
+    }
+}

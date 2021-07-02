@@ -2,6 +2,8 @@ buildscript {
 
     apply from: "$rootDir/versions.gradle"
 
+    ext.detektVersion = versions.detekt
+
     repositories {
         google()
         mavenCentral()
@@ -10,6 +12,35 @@ buildscript {
         classpath "com.android.tools.build:gradle:$versions.gradle"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
     }
+}
+
+plugins {
+    id("io.gitlab.arturbosch.detekt").version("$detektVersion")
+}
+
+tasks.detekt.jvmTarget = "1.8"
+
+subprojects {
+
+    apply {
+        plugin("io.gitlab.arturbosch.detekt")
+    }
+
+    detekt {
+        buildUponDefaultConfig = true // preconfigure defaults
+        allRules = false // activate all available (even unstable) rules.
+        config = files("$rootDir/config/detekt/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+        baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
+
+        reports {
+            html.enabled = true // observe findings in your browser with structure and code snippets
+            xml.enabled = true // checkstyle like format mainly for integrations like Jenkins
+        }
+    }
+}
+
+dependencies {
+    detekt detekt_cli
 }
 
 allprojects {
