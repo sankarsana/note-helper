@@ -20,8 +20,9 @@ class EditNotesViewModelTest {
 
     @Test
     fun `should get note from repository`() = runBlocking {
-        val note = Note(123, "title", "text")
-        coEvery { interactor.getNote(note.id) } returns note
+        val expectedId = 123
+        val note = Note(expectedId, "title", "text")
+        coEvery { interactor.getNote(expectedId) } returns note
 
         viewModel.onOpened(note.id)
 

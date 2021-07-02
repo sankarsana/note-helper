@@ -5,23 +5,20 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
+import org.junit.rules.ExternalResource
 
-class CoroutinesTestRule : TestWatcher() {
+class CoroutinesTestRule : ExternalResource() {
 
     @ExperimentalCoroutinesApi
     private val testDispatcher = TestCoroutineDispatcher()
 
     @ExperimentalCoroutinesApi
-    override fun starting(description: Description?) {
-        super.starting(description)
+    override fun before() {
         Dispatchers.setMain(testDispatcher)
     }
 
     @ExperimentalCoroutinesApi
-    override fun finished(description: Description?) {
-        super.finished(description)
+    override fun after() {
         Dispatchers.resetMain()
         testDispatcher.cleanupTestCoroutines()
     }
