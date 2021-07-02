@@ -3,13 +3,13 @@
 ## Features:
 - Add/edit notes contains:
     - texts
-    - lists
-    - links
-    - images
+    - lists (coming soon)
+    - links (coming soon)
+    - images (coming soon)
     - ...
-- Synchronizing notes between user devices
-- The ability to share the notes with another user
-- Granting various permissions to another user to read and modify the self notes
+- Synchronizing notes between user devices (coming soon)
+- The ability to share the notes with another user (coming soon)
+- Granting various permissions to another user to read and modify the self notes (coming soon)
 
 ## Technology stack
 - Kotlin + Coroutines
