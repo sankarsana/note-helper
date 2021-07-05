@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bhaktaprogram.coreapi.extensions.getAppFacade
+import com.bhaktaprogram.coreapi.extensions.getProviderFacade
 import com.bhaktaprogram.notes.R
 import com.bhaktaprogram.notes.databinding.NotesFragmentBinding
 import com.bhaktaprogram.notes.di.NotesComponent
@@ -26,7 +26,7 @@ class NotesFragment : Fragment(R.layout.notes_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         NotesComponent
-            .create(getAppFacade())
+            .create(getProviderFacade())
             .inject(this)
 
         adapter = NotesAdapter(viewModel::onNoteClicked)

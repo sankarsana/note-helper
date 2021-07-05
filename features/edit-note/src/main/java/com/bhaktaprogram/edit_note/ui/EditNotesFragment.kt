@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bhaktaprogram.coreapi.extensions.getAppFacade
+import com.bhaktaprogram.coreapi.extensions.getProviderFacade
 import com.bhaktaprogram.edit_note.R
 import com.bhaktaprogram.edit_note.databinding.EditNotesFragmentBinding
 import com.bhaktaprogram.edit_note.di.EditNoteComponent
@@ -26,7 +26,9 @@ class EditNotesFragment : Fragment(R.layout.edit_notes_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        EditNoteComponent.create(getAppFacade()).inject(this)
+        EditNoteComponent
+            .create(getProviderFacade())
+            .inject(this)
 
         lifecycleScope.launchWhenStarted {
             viewModel.state.collect(::updateState)

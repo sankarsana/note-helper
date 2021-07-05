@@ -2,7 +2,7 @@ package com.bhaktaprogram.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bhaktaprogram.coreapi.AppFacade
+import com.bhaktaprogram.coreapi.extensions.getProviderFacade
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MainComponent.create(application as AppFacade).inject(this)
+        MainComponent.create(getProviderFacade()).inject(this)
 
         if (savedInstanceState == null) {
             viewModel.onOpened()

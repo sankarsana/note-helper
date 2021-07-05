@@ -1,6 +1,5 @@
 package com.bhaktaprogram.main
 
-import com.bhaktaprogram.coreapi.AppFacade
 import com.bhaktaprogram.coreapi.ProvidersFacade
 import dagger.Component
 
@@ -13,10 +12,10 @@ interface MainComponent {
 
     companion object {
 
-        fun create(appFacade: AppFacade): MainComponent {
+        fun create(providersFacade: ProvidersFacade): MainComponent {
             return DaggerMainComponent
                 .builder()
-                .providersFacade(appFacade.getProvidersFacade())
+                .providersFacade(providersFacade)
                 .build()
         }
     }
